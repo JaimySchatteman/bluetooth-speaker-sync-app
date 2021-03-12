@@ -1899,6 +1899,11 @@
   dependencies:
     source-map "^0.6.1"
 
+"@types/web-bluetooth@^0.0.9":
+  version "0.0.9"
+  resolved "https://registry.npmjs.org/@types/web-bluetooth/-/web-bluetooth-0.0.9.tgz#bfd545f6cbc32fc9d92e9543b5ea18ba0957e955"
+  integrity sha512-P6oHnRSEqRCR1fdAtJXmKBiHE3fOWtNFyfjm9NQZPrxdQjSZgRSiKRiHjLyKBh8eCvM8ldDS8/VJN0qKg0Pk1Q==
+
 "@types/webpack-sources@*":
   version "2.1.0"
   resolved "https://registry.npmjs.org/@types/webpack-sources/-/webpack-sources-2.1.0.tgz#8882b0bd62d1e0ce62f183d0d01b72e6e82e8c10"
