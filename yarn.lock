@@ -1899,11 +1899,6 @@
   dependencies:
     source-map "^0.6.1"
 
-"@types/web-bluetooth@^0.0.4":
-  version "0.0.4"
-  resolved "https://registry.npmjs.org/@types/web-bluetooth/-/web-bluetooth-0.0.4.tgz#107b7fc8666470035b541b194c933d320cd8fb47"
-  integrity sha512-C+BgVBBGY9c6ixcc5PsKAmGaCy3bswZ5zx/AWIAik9dgFuBkFsXBA3ze69jJi05xdZQ99QkfBSVIX6zl+6Tmww==
-
 "@types/web-bluetooth@^0.0.9":
   version "0.0.9"
   resolved "https://registry.npmjs.org/@types/web-bluetooth/-/web-bluetooth-0.0.9.tgz#bfd545f6cbc32fc9d92e9543b5ea18ba0957e955"
@@ -9669,13 +9664,6 @@ react-app-polyfill@^2.0.0:
     raf "^3.4.1"
     regenerator-runtime "^0.13.7"
     whatwg-fetch "^3.4.1"
-
-react-bluetooth@^0.0.0:
-  version "0.0.0"
-  resolved "https://registry.npmjs.org/react-bluetooth/-/react-bluetooth-0.0.0.tgz#45017e2d4547f0c71142bf4d73f269aca56daa49"
-  integrity sha512-/4khUvNm8DG+vcO4TlhxhZvysJ9q8XKfzegOtg/QjlA2mzHitOw450NteieYhLj6ywqrEQfJUXPXUWsv1cvTEQ==
-  dependencies:
-    "@types/web-bluetooth" "^0.0.4"
 
 react-dev-utils@^11.0.3:
   version "11.0.3"
