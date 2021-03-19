@@ -2,6 +2,7 @@ import React, { FunctionComponent } from "react";
 import "./App.less";
 import { Layout, Menu } from "antd";
 import { LaptopOutlined, NotificationOutlined, UserOutlined } from "@ant-design/icons";
+import SearchBarYoutube from "./Common/Components/SearchBarYoutube";
 import MusicRoom from "./Devices/MusicRoom";
 
 const { Sider, Header, Content } = Layout;
@@ -52,7 +53,7 @@ const App: FunctionComponent = () => {
                 minHeight: "100vh",
               }}
             >
-              <MusicRoom />
+              <Test />
             </Content>
           </Layout>
         </Layout>
