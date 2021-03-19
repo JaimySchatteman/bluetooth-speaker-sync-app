@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import { Avatar, Button, Col, List, Row } from "antd";
 import { DeleteOutlined, LoadingOutlined, WifiOutlined } from "@ant-design/icons";
 import "./Test.less";
@@ -7,26 +7,21 @@ import ReactPlayer from "react-player";
 type Video = {
   id: string;
   title: string;
-  url: string;
 };
 
-const Test = () => {
-  const [currentVideo, setCurrentVideo] = useState<Video>();
+const MusicRoom = () => {
   const [queue, setQueue] = useState<Video[]>([
     {
-      id: "13213",
-      title: "K3 - Oljalele",
-      url: "http://sqdfqsdfqsf",
+      id: "yDlty38M_ZE",
+      title: "Nothing Lasts",
     },
     {
-      id: "5646889",
-      title: "Samson & gert - Had ik 1 miljoen",
-      url: "http://sqdfqsdfqsf",
+      id: "ZFI7xoIHt-Q",
+      title: "Neroche - Moontide Theory (Hugo Kant Edit)",
     },
     {
-      id: "65656456",
-      title: "K3 - Oljalele",
-      url: "http://sqdfqsdfqsf",
+      id: "Pqv_TqdZSYg",
+      title: "BICEP | SAKU (FEAT. CLARA LA SAN) (Official Audio)",
     },
   ]);
 
@@ -37,22 +32,28 @@ const Test = () => {
   }, []);
 
   const nextVideo = useCallback(() => {
-    console.log("dfqsdf");
+    console.log(queue);
+    const currentQueue: Video[] = [...queue];
+    currentQueue.shift();
+    console.log(currentQueue);
+    setQueue(currentQueue);
   }, []);
 
   return (
     <div>
-      <div className="player-wrapper">
-        {currentVideo && (
+      {queue.length !== 0 && (
+        <div className="player-wrapper">
           <ReactPlayer
             className="react-player"
-            onEnded={nextVideo}
-            url={"https://www.youtube.com/watch?v=" + currentVideo.id}
+            playing={true}
+            url={"https://www.youtube.com/watch?v=" + queue[0].id}
             width="100%"
             height="100%"
+            onEnded={nextVideo}
+            controls={true}
           />
-        )}
-      </div>
+        </div>
+      )}
       <div className="test-container">
         <List
           className="device-list"
@@ -73,4 +74,4 @@ const Test = () => {
   );
 };
 
-export default Test;
+export default memo(MusicRoom);
