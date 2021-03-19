@@ -3,6 +3,7 @@ import "./App.less";
 import { Layout, Menu } from "antd";
 import { LaptopOutlined, NotificationOutlined, UserOutlined } from "@ant-design/icons";
 import Test from "./Devices/Test";
+import SearchBarYoutube from "./Common/Components/SearchBarYoutube";
 
 const { Sider, Header, Content } = Layout;
 const { SubMenu } = Menu;
@@ -53,6 +54,7 @@ const App: FunctionComponent = () => {
               }}
             >
               <Test />
+              <SearchBarYoutube></SearchBarYoutube>
             </Content>
           </Layout>
         </Layout>

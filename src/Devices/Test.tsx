@@ -4,7 +4,7 @@ import { DeleteOutlined, LoadingOutlined, WifiOutlined } from "@ant-design/icons
 import "./Test.less";
 import ReactPlayer from "react-player";
 
-type Video = {
+export type Video = {
   id: string;
   title: string;
   url: string;
