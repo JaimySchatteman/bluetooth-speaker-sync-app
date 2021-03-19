@@ -8,6 +8,7 @@ import Queue from "./Queue";
 export type Video = {
   id: string;
   title: string;
+  thumbnail: string;
 };
 
 const MusicRoom = () => {
@@ -15,14 +16,20 @@ const MusicRoom = () => {
     {
       id: "yDlty38M_ZE",
       title: "Nothing Lasts",
+      thumbnail:
+        "https://i.ytimg.com/vi/YVSYJjk3bvo/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCwrjbBOcx97vtn9uZTvkeCrliJ6Q",
     },
     {
       id: "ZFI7xoIHt-Q",
       title: "Neroche - Moontide Theory (Hugo Kant Edit)",
+      thumbnail:
+        "https://i.ytimg.com/vi/YVSYJjk3bvo/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCwrjbBOcx97vtn9uZTvkeCrliJ6Q",
     },
     {
       id: "Pqv_TqdZSYg",
       title: "BICEP | SAKU (FEAT. CLARA LA SAN) (Official Audio)",
+      thumbnail:
+        "https://i.ytimg.com/vi/YVSYJjk3bvo/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCwrjbBOcx97vtn9uZTvkeCrliJ6Q",
     },
   ]);
 

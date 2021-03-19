@@ -12,10 +12,6 @@
 }
 
 .test-container {
-  background-color: white;
-  border-radius: 0 0 20px 20px;
-  box-shadow: 10px 10px 15px rgba(200, 200, 200, .2);
-
   .device-list {
     .device-list-item {
       border-radius: 10px;
@@ -23,6 +19,14 @@
       border-color: #eeeeee;
       box-shadow: 3px 3px 5px rgba(200, 200, 200, .2);
       transition: box-shadow .3s ease-in-out;
+      margin: @margin-md 0;
+
+      .thumbnail-container {
+        margin-right: @margin-md;
+        img {
+          border-radius: 10px 0 0 10px;
+        }
+      }
 
       &:hover {
         box-shadow: 3px 3px 5px rgb(200, 200, 255);
@@ -36,11 +40,13 @@
         .delete-icon {
           svg {
             font-size: @font-size-lg;
+
             path {
               fill: white;
             }
           }
         }
+
       }
     }
   }
