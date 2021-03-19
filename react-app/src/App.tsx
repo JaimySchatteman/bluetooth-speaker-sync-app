@@ -20,8 +20,14 @@ const App: FunctionComponent = () => {
           </Menu>
         </Header>
         <Layout>
-          <Sider theme={"dark"} width={200} className="site-layout-background">
-            <Menu mode="inline" defaultSelectedKeys={["1"]} defaultOpenKeys={["sub1"]} style={{ height: "100%", borderRight: 0 }}>
+          <Sider theme={"dark"} width={200} collapsible={true} className="site-layout-background">
+            <Menu
+              theme="dark"
+              mode="inline"
+              defaultSelectedKeys={["1"]}
+              defaultOpenKeys={["sub1"]}
+              style={{ height: "100%", borderRight: 0 }}
+            >
               <SubMenu key="sub1" icon={<UserOutlined />} title="subnav 1">
                 <Menu.Item key="1">option1</Menu.Item>
                 <Menu.Item key="2">option2</Menu.Item>
