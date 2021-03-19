@@ -3,8 +3,9 @@ import { Avatar, Button, Col, List, Row } from "antd";
 import { DeleteOutlined, LoadingOutlined, WifiOutlined } from "@ant-design/icons";
 import "./Test.less";
 import ReactPlayer from "react-player";
+import Queue from "./Queue";
 
-type Video = {
+export type Video = {
   id: string;
   title: string;
 };
@@ -32,10 +33,8 @@ const MusicRoom = () => {
   }, []);
 
   const nextVideo = useCallback(() => {
-    console.log(queue);
     const currentQueue: Video[] = [...queue];
     currentQueue.shift();
-    console.log(currentQueue);
     setQueue(currentQueue);
   }, []);
 
@@ -54,22 +53,7 @@ const MusicRoom = () => {
           />
         </div>
       )}
-      <div className="test-container">
-        <List
-          className="device-list"
-          itemLayout="horizontal"
-          bordered={false}
-          dataSource={queue}
-          renderItem={({ id, title }) => (
-            <List.Item key={id} className="device-list-item">
-              <List.Item.Meta title={title} description={"This is a description"} />
-              <div className="delete-icon-container" onClick={() => removeFromQueue(id)}>
-                <DeleteOutlined className="delete-icon" />
-              </div>
-            </List.Item>
-          )}
-        />
-      </div>
+      <Queue queue={queue} onRemove={removeFromQueue} />
     </div>
   );
 };
