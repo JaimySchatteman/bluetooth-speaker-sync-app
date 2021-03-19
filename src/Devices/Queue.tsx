@@ -1,7 +1,8 @@
 import React, { FunctionComponent } from "react";
-import { Video } from "./MusicRoom";
+
 import { List } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
+import Video from "../Common/Objects/Video";
 
 type QueueProps = {
   queue: Video[];

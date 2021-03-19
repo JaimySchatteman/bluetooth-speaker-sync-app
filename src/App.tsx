@@ -53,7 +53,7 @@ const App: FunctionComponent = () => {
                 minHeight: "100vh",
               }}
             >
-              <Test />
+              <MusicRoom />
             </Content>
           </Layout>
         </Layout>

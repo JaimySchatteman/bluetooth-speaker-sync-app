@@ -4,12 +4,8 @@ import { DeleteOutlined, LoadingOutlined, WifiOutlined } from "@ant-design/icons
 import "./Test.less";
 import ReactPlayer from "react-player";
 import Queue from "./Queue";
-
-export type Video = {
-  id: string;
-  title: string;
-  thumbnail: string;
-};
+import SearchBarYoutube from "../Common/Components/SearchBarYoutube";
+import Video from "../Common/Objects/Video";
 
 const MusicRoom = () => {
   const [queue, setQueue] = useState<Video[]>([
@@ -33,7 +29,7 @@ const MusicRoom = () => {
     },
   ]);
 
-  const handleFromQueue = useCallback(
+  const handleRemoveFromQueue = useCallback(
     (id: string) => {
       const currentQueue: Video[] = [...queue];
       const filteredQueue = currentQueue.filter(video => video.id !== id);
@@ -41,6 +37,12 @@ const MusicRoom = () => {
     },
     [queue],
   );
+
+  const handleAddToQueue = useCallback((video: Video) => {
+    const currentQueue = [...queue];
+    currentQueue.push(video);
+    setQueue(currentQueue);
+  }, []);
 
   const nextVideo = useCallback(() => {
     const currentQueue: Video[] = [...queue];
@@ -50,6 +52,7 @@ const MusicRoom = () => {
 
   return (
     <div>
+      <SearchBarYoutube onAddToQueue={handleAddToQueue} />
       {queue.length !== 0 && (
         <div className="player-wrapper">
           <ReactPlayer
@@ -63,7 +66,7 @@ const MusicRoom = () => {
           />
         </div>
       )}
-      <Queue queue={queue} onRemoveFromQueue={handleFromQueue} />
+      <Queue queue={queue} onRemoveFromQueue={handleRemoveFromQueue} />
     </div>
   );
 };

@@ -1,5 +1,7 @@
-export type Video = {
+type Video = {
   id: string;
   title: string;
   thumbnail: string;
 };
+
+export default Video;
