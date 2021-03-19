@@ -5,10 +5,10 @@ import { DeleteOutlined } from "@ant-design/icons";
 
 type QueueProps = {
   queue: Video[];
-  onRemove: (videoId: string) => void;
+  onRemoveFromQueue: (videoId: string) => void;
 };
 
-const Queue: FunctionComponent<QueueProps> = ({ queue, onRemove }: QueueProps) => {
+const Queue: FunctionComponent<QueueProps> = ({ queue, onRemoveFromQueue }: QueueProps) => {
   return (
     <div>
       <div className="test-container">
@@ -20,7 +20,7 @@ const Queue: FunctionComponent<QueueProps> = ({ queue, onRemove }: QueueProps) =
           renderItem={({ id, title }) => (
             <List.Item key={id} className="device-list-item">
               <List.Item.Meta title={title} description={"This is a description"} />
-              <div className="delete-icon-container" onClick={() => onRemove(id)}>
+              <div className="delete-icon-container" onClick={() => onRemoveFromQueue(id)}>
                 <DeleteOutlined className="delete-icon" />
               </div>
             </List.Item>

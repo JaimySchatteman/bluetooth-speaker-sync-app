@@ -26,17 +26,20 @@ const MusicRoom = () => {
     },
   ]);
 
-  const removeFromQueue = useCallback((id: string) => {
-    const currentQueue: Video[] = [...queue];
-    const filteredQueue = currentQueue.filter(video => video.id !== id);
-    setQueue(filteredQueue);
-  }, []);
+  const handleFromQueue = useCallback(
+    (id: string) => {
+      const currentQueue: Video[] = [...queue];
+      const filteredQueue = currentQueue.filter(video => video.id !== id);
+      setQueue(filteredQueue);
+    },
+    [queue],
+  );
 
   const nextVideo = useCallback(() => {
     const currentQueue: Video[] = [...queue];
     currentQueue.shift();
     setQueue(currentQueue);
-  }, []);
+  }, [queue]);
 
   return (
     <div>
@@ -53,7 +56,7 @@ const MusicRoom = () => {
           />
         </div>
       )}
-      <Queue queue={queue} onRemove={removeFromQueue} />
+      <Queue queue={queue} onRemoveFromQueue={handleFromQueue} />
     </div>
   );
 };
