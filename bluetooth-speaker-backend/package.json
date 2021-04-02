@@ -1,10 +1,12 @@
 {
   "name": "bluetooth-speaker-backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Back-end for music live music rooms application",
+  "main": "server.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc && node ./dist/server/server.js"
   },
   "author": "",
   "license": "ISC",
