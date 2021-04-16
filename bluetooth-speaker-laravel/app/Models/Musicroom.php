@@ -18,4 +18,9 @@ class Musicroom extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function queue()
+    {
+        return $this->hasOne(Queue::class);
+    }
 }
