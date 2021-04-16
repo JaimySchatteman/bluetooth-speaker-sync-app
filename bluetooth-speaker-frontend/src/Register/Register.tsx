@@ -12,6 +12,12 @@ glide({
   duration: 600,
 });
 
+glide({
+  name: "glide-left",
+  direction: "left",
+  duration: 600,
+});
+
 const Register = () => {
   const [form] = Form.useForm();
 
@@ -65,7 +71,7 @@ const Register = () => {
           </Form.Item>
 
           <Form.Item
-            name="confirm"
+            name="password_confirmation"
             label="Confirm Password"
             dependencies={["password"]}
             hasFeedback
@@ -107,7 +113,7 @@ const Register = () => {
               </Button>
               or{" "}
               <Link to={"/login"} transition="glide-right">
-                <a>Sign in</a>
+                Sign in
               </Link>
             </Space>
           </Form.Item>

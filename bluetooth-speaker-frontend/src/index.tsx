@@ -4,7 +4,6 @@ import "./index.less";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { RecoilRoot } from "recoil";
-import Routes from "./Routes";
 
 ReactDOM.render(
   <React.StrictMode>

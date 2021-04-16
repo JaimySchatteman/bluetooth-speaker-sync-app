@@ -1,13 +1,19 @@
 import React, { FunctionComponent } from "react";
 import { Button, Checkbox, Col, Form, Input, Row, Space } from "antd";
-import "./Login.less";
 import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
 // @ts-ignore
 import { Link, glide } from "react-tiger-transition";
+import "./Login.less";
 
 glide({
   name: "glide-left",
   direction: "left",
+  duration: 600,
+});
+
+glide({
+  name: "glide-right",
+  direction: "right",
   duration: 600,
 });
 
@@ -41,9 +47,9 @@ const Login: FunctionComponent = () => {
               <Button type="primary" htmlType="submit" className="login-form-button">
                 Log in
               </Button>
-              Or{" "}
+              Or
               <Link to="/register" transition="glide-left">
-                register now!
+                Register now!
               </Link>
             </Space>
           </Form.Item>
