@@ -1,9 +1,15 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useCallback } from "react";
 import { Button, Checkbox, Col, Form, Input, Row, Space } from "antd";
-import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
+import { LockOutlined, MailOutlined } from "@ant-design/icons";
 // @ts-ignore
 import { Link, glide } from "react-tiger-transition";
 import "./Login.less";
+import http from "../Common/Utils/HttpService";
+import AccessTokenState, { AccessToken } from "../GlobalState/AccesToken";
+import axios from "axios";
+import { useRecoilState } from "recoil";
+import camelcaseKeys from "camelcase-keys";
+import { Redirect, useHistory } from "react-router-dom";
 
 glide({
   name: "glide-left",
@@ -18,14 +24,31 @@ glide({
 });
 
 const Login: FunctionComponent = () => {
-  const onFinish = (values: any) => {
-    console.log("Received values of form: ", values);
-  };
+  const [{ accessToken }, setAccessToken] = useRecoilState<AccessToken>(AccessTokenState);
+  const history = useHistory();
 
-  return (
+  const onFinish = useCallback(async (values: any) => {
+    try {
+      const { data } = await http.post<AccessToken>("auth/login", values);
+      const token: AccessToken = camelcaseKeys(data);
+      setAccessToken(camelcaseKeys(token));
+      axios.defaults.headers.common = {
+        Authorization: `Bearer ${token.accessToken}`,
+      };
+      history.push("/musicroom");
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
+
+  return accessToken ? (
+    <Redirect to="/musicroom" />
+  ) : (
     <Row className="login-container" justify="center" align="middle">
-      <Col className="form-container" span={10}>
-        <Form name="normal_login" className="login-form" initialValues={{ remember: true }} onFinish={onFinish}>
+      <Col className="form-container" flex="auto">
+        <h1>Sign in</h1>
+        <h2>Good to see you again!</h2>
+        <Form name="login" className="login-form" initialValues={{ remember: true }} onFinish={onFinish}>
           <Form.Item name="email" rules={[{ required: true, message: "Please input your email!" }]}>
             <Input prefix={<MailOutlined className="site-form-item-icon" />} placeholder="Username" />
           </Form.Item>
@@ -45,11 +68,11 @@ const Login: FunctionComponent = () => {
           <Form.Item>
             <Space direction="horizontal">
               <Button type="primary" htmlType="submit" className="login-form-button">
-                Log in
+                Login
               </Button>
               Or
               <Link to="/register" transition="glide-left">
-                Register now!
+                Sign up
               </Link>
             </Space>
           </Form.Item>

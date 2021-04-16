@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 // @ts-ignore
 import { Navigation, Route, glide } from "react-tiger-transition";
 import "react-tiger-transition/styles/main.min.css";
-import MusicRoom from "./Devices/MusicRoom";
+import MusicRoom from "./MusicRoom/MusicRoom";
 import Register from "./Register/Register";
 
 const Routes: FunctionComponent = () => {

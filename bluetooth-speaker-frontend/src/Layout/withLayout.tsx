@@ -2,8 +2,7 @@ import React, { FunctionComponent } from "react";
 import { Layout, Menu } from "antd";
 import Navbar from "../Navbar/Navbar";
 import { LaptopOutlined, NotificationOutlined, UserOutlined } from "@ant-design/icons";
-import Routes from "../Routes";
-import { RecoilRoot } from "recoil";
+import { Content } from "antd/lib/layout/layout";
 
 const { Sider } = Layout;
 const { SubMenu } = Menu;
@@ -13,9 +12,9 @@ type WithLayoutProps = {
   isWrapping: boolean;
 };
 
-const WithLayout = ({ children, isWrapping }: WithLayoutProps) => {
+const WithLayout: FunctionComponent<WithLayoutProps> = ({ children, isWrapping }: WithLayoutProps) => {
   return isWrapping ? (
-    <Layout>
+    <Layout className="layout">
       <Navbar />
       <Layout>
         <Sider theme={"dark"} width={200} collapsible={true} className="site-layout-background">
@@ -26,11 +25,11 @@ const WithLayout = ({ children, isWrapping }: WithLayoutProps) => {
             defaultOpenKeys={["sub1"]}
             style={{ height: "100%", borderRight: 0 }}
           >
-            <SubMenu key="sub1" icon={<UserOutlined />} title="subnav 1">
-              <Menu.Item key="1">option1</Menu.Item>
-              <Menu.Item key="2">option2</Menu.Item>
-              <Menu.Item key="3">option3</Menu.Item>
-              <Menu.Item key="4">option4</Menu.Item>
+            <SubMenu key="sub1" icon={<UserOutlined />} title="Listeners">
+              <Menu.Item key="1">Kenny</Menu.Item>
+              <Menu.Item key="2">Bart</Menu.Item>
+              <Menu.Item key="3">Peter</Menu.Item>
+              <Menu.Item key="4">Wim</Menu.Item>
             </SubMenu>
             <SubMenu key="sub2" icon={<LaptopOutlined />} title="subnav 2">
               <Menu.Item key="5">option5</Menu.Item>
@@ -41,7 +40,9 @@ const WithLayout = ({ children, isWrapping }: WithLayoutProps) => {
             </Menu.Item>
           </Menu>
         </Sider>
-        <Layout style={{ padding: "0 24px 24px" }}>{children}</Layout>
+        <Layout>
+          <Content>{children}</Content>
+        </Layout>
       </Layout>
     </Layout>
   ) : (

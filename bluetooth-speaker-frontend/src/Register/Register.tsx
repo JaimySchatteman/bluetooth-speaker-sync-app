@@ -1,10 +1,15 @@
-import React from "react";
-import { AutoComplete, Button, Checkbox, Col, Form, Input, Row, Space } from "antd";
-import { LockOutlined, MailOutlined } from "@ant-design/icons";
+import React, { FunctionComponent, useCallback } from "react";
+import { Button, Checkbox, Col, Form, Input, Row, Space } from "antd";
+import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
 import "./Register.less";
-
 // @ts-ignore
 import { Link, glide } from "react-tiger-transition";
+import http from "../Common/Utils/HttpService";
+import AccessTokenState, { AccessToken } from "../GlobalState/AccesToken";
+import camelcaseKeys from "camelcase-keys";
+import axios from "axios";
+import { useRecoilState } from "recoil";
+import { useHistory, Redirect } from "react-router-dom";
 
 glide({
   name: "glide-right",
@@ -18,61 +23,75 @@ glide({
   duration: 600,
 });
 
-const Register = () => {
+const Register: FunctionComponent = () => {
   const [form] = Form.useForm();
+  const [{ accessToken }, setAccessToken] = useRecoilState<AccessToken>(AccessTokenState);
+  const history = useHistory();
 
-  const onFinish = (values: any) => {
-    console.log("Received values of form: ", values);
-  };
+  const onFinish = useCallback(async (values: any) => {
+    try {
+      const { data } = await http.post<AccessToken>("auth/register", values);
+      const token: AccessToken = camelcaseKeys(data);
+      setAccessToken(camelcaseKeys(token));
+      axios.defaults.headers.common = {
+        Authorization: `Bearer ${token.accessToken}`,
+      };
+      history.push("/musicroom");
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
 
-  return (
+  return accessToken !== "" ? (
+    <Redirect to="/musicroom" />
+  ) : (
     <Row className="register-container" justify="center" align="middle">
-      <Col className="form-container" span={10}>
-        <Form
-          form={form}
-          name="register-form"
-          onFinish={onFinish}
-          layout="vertical"
-          initialValues={{
-            residence: ["zhejiang", "hangzhou", "xihu"],
-            prefix: "86",
-          }}
-          scrollToFirstError
-        >
+      <Col className="form-container" flex="auto">
+        <h1>Register</h1>
+        <h2>We&apos;re glad you&apos;re here</h2>
+        <Form form={form} name="register" className="register-form" onFinish={onFinish} layout="vertical" scrollToFirstError>
           <Form.Item
-            name="email"
-            label="E-mail"
+            name="name"
             rules={[
               {
-                type: "email",
-                message: "The input is not valid E-mail!",
-              },
-              {
                 required: true,
-                message: "Please input your E-mail!",
+                message: "Please enter your name",
               },
             ]}
           >
-            <Input />
+            <Input prefix={<UserOutlined />} placeholder="Username" />
+          </Form.Item>
+          <Form.Item
+            name="email"
+            rules={[
+              {
+                type: "email",
+                message: "The input is not valid E-mail",
+              },
+              {
+                required: true,
+                message: "Please enter your E-mail",
+              },
+            ]}
+          >
+            <Input prefix={<MailOutlined />} placeholder="E-mail address" />
           </Form.Item>
 
           <Form.Item
             name="password"
-            label="Password"
             rules={[
               {
                 required: true,
-                message: "Please input your password!",
+                message: "Please enter your password!",
               },
             ]}
             hasFeedback
           >
-            <Input.Password />
+            <Input.Password prefix={<LockOutlined />} placeholder="Password" />
           </Form.Item>
 
           <Form.Item
             name="password_confirmation"
-            label="Confirm Password"
             dependencies={["password"]}
             hasFeedback
             rules={[
@@ -90,7 +109,7 @@ const Register = () => {
               }),
             ]}
           >
-            <Input.Password />
+            <Input.Password prefix={<LockOutlined />} placeholder="Confirm password" />
           </Form.Item>
 
           <Form.Item

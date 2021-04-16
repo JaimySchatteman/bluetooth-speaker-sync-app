@@ -1,13 +1,15 @@
-import React, { memo, useCallback, useEffect, useState } from "react";
-import { Avatar, Button, Col, List, Row } from "antd";
-import { DeleteOutlined, LoadingOutlined, WifiOutlined } from "@ant-design/icons";
-import "./Test.less";
+import React, { memo, useCallback, useState } from "react";
+import "./MusicRoom.less";
 import ReactPlayer from "react-player";
 import Queue from "./Queue";
 import SearchBarYoutube from "../Common/Components/SearchBarYoutube";
 import Video from "../Common/Objects/Video";
+import { Redirect } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import AccessTokenState, { AccessToken } from "../GlobalState/AccesToken";
 
 const MusicRoom = () => {
+  const { accessToken } = useRecoilValue<AccessToken>(AccessTokenState);
   const [queue, setQueue] = useState<Video[]>([
     {
       id: "yDlty38M_ZE",
@@ -50,8 +52,10 @@ const MusicRoom = () => {
     setQueue(currentQueue);
   }, [queue]);
 
-  return (
-    <div>
+  return accessToken === "" ? (
+    <Redirect to="login" />
+  ) : (
+    <div className="music-room">
       <SearchBarYoutube onAddToQueue={handleAddToQueue} />
       {queue.length !== 0 && (
         <div className="player-wrapper">
