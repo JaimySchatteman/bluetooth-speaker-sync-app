@@ -1,11 +1,11 @@
 import React, { FunctionComponent } from "react";
-import Login from "./Login/Login";
+import Login from "./User/Login/Login";
 import { BrowserRouter as Router } from "react-router-dom";
 // @ts-ignore
 import { Navigation, Route, glide } from "react-tiger-transition";
 import "react-tiger-transition/styles/main.min.css";
 import MusicRoom from "./MusicRoom/MusicRoom";
-import Register from "./Register/Register";
+import Register from "./User/Register/Register";
 
 const Routes: FunctionComponent = () => {
   return (

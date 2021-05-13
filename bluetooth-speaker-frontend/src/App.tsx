@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 import "./App.less";
-import WithLayout from "./Layout/withLayout";
+import WithLayout from "./Common/Layout/withLayout";
 import Routes from "./Routes";
 import { useRecoilValue } from "recoil";
 import AccessTokenState, { AccessToken } from "./GlobalState/AccesToken";
