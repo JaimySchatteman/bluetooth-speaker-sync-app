@@ -14,7 +14,7 @@ class CreateQueuesTracksTable extends Migration
     public function up()
     {
         Schema::create('queue_track', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->integer('queue_id')->unsigned();
             $table->integer('track_id')->unsigned();
         });
