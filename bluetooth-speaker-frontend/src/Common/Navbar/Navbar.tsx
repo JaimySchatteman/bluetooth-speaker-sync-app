@@ -2,15 +2,15 @@ import React, { FunctionComponent, useCallback, useMemo } from "react";
 import { Button, Dropdown, Layout } from "antd";
 import { Avatar, Col, Menu, Row } from "antd";
 import { useRecoilValue } from "recoil";
-import userState, { User } from "../GlobalState/userState";
+import UserState, { User } from "../../GlobalState/UserState";
 import "./Navbar.less";
-import http from "../Common/Utils/HttpService";
+import http from "../Utils/HttpService";
 import { useHistory } from "react-router-dom";
 
 const { Header } = Layout;
 
 const Navbar: FunctionComponent = () => {
-  const user = useRecoilValue<User>(userState);
+  const user = useRecoilValue<User>(UserState);
   const { firstName, lastName } = user;
   const history = useHistory();
 

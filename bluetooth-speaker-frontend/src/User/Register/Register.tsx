@@ -4,8 +4,8 @@ import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
 import "./Register.less";
 // @ts-ignore
 import { Link, glide } from "react-tiger-transition";
-import http from "../Common/Utils/HttpService";
-import AccessTokenState, { AccessToken } from "../GlobalState/AccesToken";
+import http from "../../Common/Utils/HttpService";
+import AccessTokenState, { AccessToken } from "../../GlobalState/AccesToken";
 import camelcaseKeys from "camelcase-keys";
 import axios from "axios";
 import { useRecoilState } from "recoil";
