@@ -1,23 +1,50 @@
 @import "../App";
 
-.player-wrapper {
-  position: relative;
-  padding-top: 56.25%; /* Player ratio: 100 / (1280 / 720) */
-
-  .react-player {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-}
 
 .music-room {
-  padding: @padding-xxl;
-  overflow: scroll;
-  max-width: 1200px;
+  padding: @padding-md @padding-xxl @padding-xl @padding-xxl;
+  overflow-y: scroll !important;
 
-  .test-container {
-    .device-list {
+  .ant-row.music-room-content {
+    margin-top: @margin-lg;
+    .ant-col {
+      h1 {
+        font-size: @font-size-xl;
+        font-weight: @font-weight-bold;
+      }
+      .player-wrapper {
+        position: relative;
+        padding-top: 56.25%; /* Player ratio: 100 / (1280 / 720) */
+
+        .react-player {
+          position: absolute;
+          top: 0;
+          left: 0;
+        }
+      }
+    }
+  }
+
+  .queue-container {
+    margin-top: @margin-xxl;
+    .auto-complete-search {
+      width: 100%;
+      border-radius: @border-radius-md !important;
+    }
+
+    .queue-title {
+      padding-left: @padding-xs;
+      font-size: @font-size-card-title;
+      font-weight: @font-weight-semi-bold;
+      color: @dark-grey-color;
+      margin-top: @margin-lg;
+
+      img {
+        height: @font-size-card-title;
+      }
+    }
+
+    .track-list {
       .device-list-item {
         border-radius: 10px;
         border-width: 1px;
@@ -52,10 +79,8 @@
               }
             }
           }
-
         }
       }
     }
   }
-
 }

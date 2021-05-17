@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useCallback, useState } from "react";
 import { Input, AutoComplete } from "antd";
-import Video from "../Objects/Video";
+import Track from "../Common/Objects/Track";
 
 // Youtube api connection
 const { YoutubeDataAPI } = require("youtube-v3-api");
@@ -8,20 +8,20 @@ const API_KEY = "AIzaSyB2jdwa0q3zseYVginMFlHUEqc5rPLUXQg";
 const api = new YoutubeDataAPI(API_KEY);
 
 type SearchBarYoutubeProps = {
-  onAddToQueue: (video: Video) => void;
+  onAddToQueue: (video: Track) => void;
 };
 
 const SearchBarYoutube: FunctionComponent<SearchBarYoutubeProps> = ({ onAddToQueue }: SearchBarYoutubeProps) => {
   const [value, setValue] = useState("");
   const [options, setOptions] = useState<{ value: string }[]>([]);
-  const [videos, setVideos] = useState<Video[]>([]);
+  const [videos, setVideos] = useState<Track[]>([]);
 
   const searchYoutubeByName = async () => {
     try {
       console.log("searchin dg");
       const results = await api.searchAll(value, 5, { type: "video" });
       console.log(results.items);
-      const tempVideos: Video[] = [];
+      const tempVideos: Track[] = [];
       results.items.forEach((item: any) => {
         tempVideos.push({
           id: item.id.videoId,
@@ -53,7 +53,7 @@ const SearchBarYoutube: FunctionComponent<SearchBarYoutubeProps> = ({ onAddToQue
   const onSelect = useCallback((title: string) => {
     console.log(title);
     console.log(videos);
-    const videoToAdd: Video | undefined = videos.find(video => video.title === title);
+    const videoToAdd: Track | undefined = videos.find(video => video.title === title);
     console.log(videoToAdd);
     videoToAdd && onAddToQueue(videoToAdd);
   }, []);
@@ -63,8 +63,8 @@ const SearchBarYoutube: FunctionComponent<SearchBarYoutubeProps> = ({ onAddToQue
   }, []);
 
   return (
-    <AutoComplete options={options} style={{ width: 200 }} onSelect={onSelect} onChange={onChange}>
-      <Input.Search onSearch={onSearch} size="large" placeholder="input here" />
+    <AutoComplete options={options} className="auto-complete-search" onSelect={onSelect} onChange={onChange}>
+      <Input.Search onSearch={onSearch} size="large" placeholder="Search for a track..." />
     </AutoComplete>
   );
 };
