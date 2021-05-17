@@ -23,7 +23,7 @@ const useAuthentication = () => {
   const handleLogin = useCallback(
     async (values: any): Promise<void> => {
       try {
-        const response = await http.post<Token>("auth/login", values);
+        const response = await http.post<Token>("api/auth/login", values);
         const tokenData: Token = camelcaseKeys(response.data);
         tokenData.expires = new Date();
         tokenData.expires.setFullYear(tokenData.expires.getFullYear() + 1);
@@ -41,7 +41,7 @@ const useAuthentication = () => {
   const handleRegister = useCallback(
     async (values: any): Promise<void> => {
       try {
-        const response = await http.post<Token>("auth/register", values);
+        const response = await http.post<Token>("api/auth/register", values);
         const tokenData: Token = camelcaseKeys(response.data);
         tokenData.expires = new Date();
         tokenData.expires.setFullYear(tokenData.expires.getFullYear() + 1);
@@ -62,7 +62,7 @@ const useAuthentication = () => {
 
   const handleLogout = useCallback(async () => {
     try {
-      await http.post("auth/logout");
+      await http.post("api/auth/logout");
       removeCookie("accessToken");
     } catch (e) {
       console.log(e);
