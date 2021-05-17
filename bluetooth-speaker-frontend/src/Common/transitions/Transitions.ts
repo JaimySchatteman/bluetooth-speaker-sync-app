@@ -1,5 +1,5 @@
 // @ts-ignore
-import { room, drop, glideIn } from "react-tiger-transition";
+import { room, drop, glide } from "react-tiger-transition";
 
 room({
   name: "room-left",
@@ -81,42 +81,12 @@ drop({
   },
 });
 
-glideIn({
+glide({
   name: "glide-left",
   direction: "left",
-  enter: {
-    duration: 600,
-    easing: "ease",
-    opacity: 1,
-    zIndex: 4,
-    delay: 0,
-  },
-  exit: {
-    duration: 600,
-    easing: "ease",
-    opacity: 0,
-    zIndex: 2,
-    scale: 1,
-    delay: 0,
-  },
 });
 
-glideIn({
+glide({
   name: "glide-right",
   direction: "right",
-  enter: {
-    duration: 600,
-    easing: "ease",
-    opacity: 1,
-    zIndex: 3,
-    delay: 0,
-  },
-  exit: {
-    duration: 600,
-    easing: "ease",
-    opacity: 0,
-    zIndex: 1,
-    scale: 1,
-    delay: 0,
-  },
 });
