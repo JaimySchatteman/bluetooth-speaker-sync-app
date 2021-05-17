@@ -1,7 +1,9 @@
 <?php
 
 use App\Models\User;
+use App\Events\WebSocketDemoEvent;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MusicroomController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return User::with('musicroom')->findOrFail(1);
-});
+Route::get('/musicrooms', [MusicroomController::class, 'index']);
+Route::get('/musicroom/{id}', [MusicroomController::class, 'show']);
+
+Route::delete('/musicroom/{id}', 'MusicroomController@destroy');
+Route::delete('/musicroom/{musicroom_id}/tracks/{track_id}', 'MusicroomController@destroyTrack');
+
+Route::post('/musicroom/{request}', [MusicroomController::class, 'create']);
+
+Route::post('/track/{request}', 'TrackController@create');

@@ -1,0 +1,45 @@
+@import "../App";
+
+.music-rooms {
+  padding: @padding-xl @padding-xxl;
+
+  h1.musicrooms-title {
+    font-size: @font-size-xxl;
+    font-weight: @font-weight-bold;
+  }
+
+  .ant-row {
+    .ant-col {
+      .ant-card {
+        border-radius: @border-radius-md;
+
+        .ant-card-head {
+          .ant-card-head-title {
+            font-size: @font-size-card-title;
+            font-weight: bold;
+          }
+        }
+
+        .ant-card-body {
+          .ant-row {
+            .ant-row {
+              h3.amount-participants {
+                margin-bottom: 0;
+                margin-left: @margin-xss;
+                color: @normal-grey-color;
+                font-size: 20px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  div.horizontal-line {
+    height: 1px;
+    color: @normal-grey-color;
+    width: 100%;
+  }
+
+}

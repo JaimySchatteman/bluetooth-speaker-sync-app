@@ -1,17 +1,55 @@
 @import '~antd/dist/antd.less';
 
+@light-green-color: #67EBC1;
+
 @black-color: #000;
 @dark-grey-color: #2C3038;
 @normal-grey-color: #6E798C;
 @light-grey-color: #F1F1F1;
 @white-color: #fff;
 
+@margin-xl: 36px;
+@margin-xxl: 54px;
+
+@padding-xl: 36px;
+@padding-xxl: 54px;
+
+@font-size-card-title: 20px;
+@font-size-xl: 24px;
+@font-size-xxl: 36px;
+@font-size-xxxl: 54px;
+
+@font-weight-regular: 400;
+@font-weight-semi-bold: 500;
+@font-weight-bold: 600;
+@font-weight-extra-bold: 700;
+@font-weight-black: 800;
+
+@btn-primary-bg: @light-green-color;
+@btn-primary-color: @dark-grey-color;
+
 @avatar-border-radius: 10px;
 @avatar-size-lg: 48px;
 @avatar-font-size-lg: 20px;
 
+@border-radius-md: 10px;
+
 @list-item-padding:0 @padding-lg 0 0;
 
-#app {
+.App {
   background-color: @light-grey-color;
+  height: 100vh;
+  overflow: hidden !important;
+
+  .react-tiger-transition--container {
+    .react-tiger-transition--route {
+      .react-tiger-transition--screen {
+          overflow: hidden;
+      }
+    }
+  }
+
+  .layout {
+    height: 100vh;
+  }
 }

@@ -16,7 +16,7 @@ class AddMusicroomidToUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->unsignedBigInteger('musicroom_id')->nullable();
 
-            $table->foreign('musicroom_id')->references('id')->on('musicroom');
+            $table->foreign('musicroom_id')->references('id')->on('musicrooms');
         });
     }
 
