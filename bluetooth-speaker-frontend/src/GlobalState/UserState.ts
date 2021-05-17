@@ -1,15 +1,9 @@
-import {atom} from "recoil";
+import { atom } from "recoil";
+import { User } from "../Common/Objects/User";
 
-export type User = {
-    firstName: string;
-    lastName: string
-}
-
-const UserState = atom<User>(
-    {
-        key: 'UserState',
-        default: {firstName: "Jaimy", lastName: "Schatteman"} as User
-    }
-)
+const UserState = atom<User>({
+  key: "UserState",
+  default: { id: 1, userName: "Jaimy", email: "email@provider.com" } as User,
+});
 
 export default UserState;
