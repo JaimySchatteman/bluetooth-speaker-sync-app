@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
@@ -27,7 +28,8 @@ class AuthController extends Controller
         ]);
 
         return $this->success([
-            'token' => $user->createToken('API Token')->plainTextToken
+            'token' => $user->createToken('API Token')->plainTextToken,
+            'expires' => Carbon::now()->addYear(1)
         ]);
     }
 
@@ -43,7 +45,8 @@ class AuthController extends Controller
         }
 
         return $this->success([
-            'token' => auth()->user()->createToken('API Token')->plainTextToken
+            'token' => auth()->user()->createToken('API Token')->plainTextToken,
+            'expires' => Carbon::now()->addYear(1)
         ]);
     }
 

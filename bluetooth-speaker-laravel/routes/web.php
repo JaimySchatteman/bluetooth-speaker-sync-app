@@ -15,7 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    broadcast(new WebSocketDemoEvent('some data'));
-    return User::with('musicroom')->findOrFail(1);
-});
+Route::get('/', 'MusicroomController@index');
+Route::get('/musicroom/{id}', 'MusicroomController@show');
+
+Route::delete('/musicroom/{id}', 'MusicroomController@destroy');
+Route::delete('/musicroom/{musicroom_id}/tracks/{track_id}', 'MusicroomController@destroyTrack');
+
+Route::post('/musicroom/{request}', 'MusicroomController@create');
+
+Route::post('/track/{request}', 'TrackController@create');
