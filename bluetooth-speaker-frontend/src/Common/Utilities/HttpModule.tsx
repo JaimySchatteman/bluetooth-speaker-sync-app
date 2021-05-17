@@ -1,7 +1,7 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 axios.defaults.baseURL = "http://localhost:8000/api/";
-axios.interceptors.response.use(undefined, (error: any) => {
+axios.interceptors.response.use(undefined, (error: AxiosError) => {
   const isExpectedError = error.response && error.response.status >= 404 && error.response.status < 500;
 
   if (!isExpectedError) {
