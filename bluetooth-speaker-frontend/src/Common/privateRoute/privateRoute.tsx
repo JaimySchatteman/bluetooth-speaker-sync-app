@@ -16,16 +16,11 @@ type PrivateRoutePops = {
   transitionProps: TransitionProperties;
 };
 
-const PrivateRoute: FunctionComponent<PrivateRoutePops> = ({
-  path,
-  exact,
-  children,
-  transitionProps,
-}: PrivateRoutePops) => {
+const PrivateRoute: FunctionComponent<PrivateRoutePops> = ({ path, exact, children, transitionProps }: PrivateRoutePops) => {
   const { isLoggedIn } = useAuthentication();
 
   return !isLoggedIn ? (
-    <Redirect to="/login" />
+    <Redirect to={{ pathname: "/login", state: { previousPath: path } }} />
   ) : (
     <Route path={path} exact={exact} transitionProps={transitionProps}>
       {children}
