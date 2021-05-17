@@ -4,12 +4,13 @@ import ReactPlayer from "react-player";
 import Queue from "./Queue";
 import SearchBarYoutube from "../Common/Components/SearchBarYoutube";
 import Video from "../Common/Objects/Video";
-import { Redirect } from "react-router-dom";
-import { useRecoilValue } from "recoil";
-import AccessTokenState, { AccessToken } from "../GlobalState/AccesToken";
+// @ts-ignore
+import { Screen, Link } from "react-tiger-transition";
+import { useLocation } from "react-router-dom";
+import { ArrowLeftOutlined } from "@ant-design/icons";
+import { Row } from "antd";
 
 const MusicRoom = () => {
-  const { accessToken } = useRecoilValue<AccessToken>(AccessTokenState);
   const [queue, setQueue] = useState<Video[]>([
     {
       id: "yDlty38M_ZE",
@@ -30,6 +31,8 @@ const MusicRoom = () => {
         "https://i.ytimg.com/vi/YVSYJjk3bvo/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCwrjbBOcx97vtn9uZTvkeCrliJ6Q",
     },
   ]);
+
+  const { pathname } = useLocation();
 
   const handleRemoveFromQueue = useCallback(
     (id: string) => {
@@ -52,10 +55,14 @@ const MusicRoom = () => {
     setQueue(currentQueue);
   }, [queue]);
 
-  return accessToken === "" ? (
-    <Redirect to="login" />
-  ) : (
-    <div className="music-room">
+  return (
+    <Screen className="music-room">
+      <Row>
+        <Link to={{ pathname: "/", state: { previousPath: pathname } }}>
+          <ArrowLeftOutlined /> Back
+        </Link>
+      </Row>
+
       <SearchBarYoutube onAddToQueue={handleAddToQueue} />
       {queue.length !== 0 && (
         <div className="player-wrapper">
@@ -71,7 +78,7 @@ const MusicRoom = () => {
         </div>
       )}
       <Queue queue={queue} onRemoveFromQueue={handleRemoveFromQueue} />
-    </div>
+    </Screen>
   );
 };
 
