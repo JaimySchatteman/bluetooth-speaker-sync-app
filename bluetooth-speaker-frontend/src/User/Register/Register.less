@@ -1,29 +1,8 @@
 @import "../../App";
+@import "../FormContainer";
 
 .register-container {
-  height: 100%;
-
-  .form-container {
-    background-color: @white-color;
-    padding: @padding-xl @padding-xl;
-    max-width: 400px;
-    border-radius: 6px;
-    box-shadow: 2px 2px 8px rgba(@light-grey-color, 0.2);
-
-    h1 {
-      font-size: 36px;
-      margin: 0;
-    }
-
-    h2 {
-      color: @normal-grey-color;
-      margin-bottom: @margin-lg;
-    }
-
-    .register-form {
-      svg {
-        margin-right: @margin-xs;
-      }
-    }
-  }
+  height: 100vh;
+  background-color: @primary-color;
+  .form-container-css();
 }
