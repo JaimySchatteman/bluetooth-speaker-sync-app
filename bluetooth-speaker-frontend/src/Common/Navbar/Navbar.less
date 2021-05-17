@@ -1,9 +1,28 @@
 @import "../../App.less";
 
 .navbar {
-  .dropdown {
-    .dropdown_menu {
-      padding: @padding-lg;
+  .ant-row {
+    .ant-col {
+      .logo {
+        height: 27px;
+      }
+
+      .ant-space {
+        .ant-space-item {
+          .ant-avatar {
+            color: @black-color;
+            background-color: @light-green-color;
+          }
+
+          span.anticon {
+            svg {
+              path {
+                fill: @light-green-color;
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

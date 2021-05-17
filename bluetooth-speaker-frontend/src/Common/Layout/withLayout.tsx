@@ -16,34 +16,7 @@ const WithLayout: FunctionComponent<WithLayoutProps> = ({ children, isWrapping }
   return isWrapping ? (
     <Layout className="layout">
       <Navbar />
-      <Layout>
-        <Sider theme={"dark"} width={200} collapsible={true} className="site-layout-background">
-          <Menu
-            theme="dark"
-            mode="inline"
-            defaultSelectedKeys={["1"]}
-            defaultOpenKeys={["sub1"]}
-            style={{ height: "100%", borderRight: 0 }}
-          >
-            <SubMenu key="sub1" icon={<UserOutlined />} title="Listeners">
-              <Menu.Item key="1">Kenny</Menu.Item>
-              <Menu.Item key="2">Bart</Menu.Item>
-              <Menu.Item key="3">Peter</Menu.Item>
-              <Menu.Item key="4">Wim</Menu.Item>
-            </SubMenu>
-            <SubMenu key="sub2" icon={<LaptopOutlined />} title="subnav 2">
-              <Menu.Item key="5">option5</Menu.Item>
-              <Menu.Item key="6">option6</Menu.Item>
-            </SubMenu>
-            <Menu.Item key="9" icon={<NotificationOutlined />}>
-              option9
-            </Menu.Item>
-          </Menu>
-        </Sider>
-        <Layout>
-          <Content>{children}</Content>
-        </Layout>
-      </Layout>
+      <Content>{children}</Content>
     </Layout>
   ) : (
     <>{children}</>
