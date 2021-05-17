@@ -1,17 +1,20 @@
 import React, { FunctionComponent } from "react";
 import "./App.less";
 import WithLayout from "./Common/Layout/withLayout";
+import { BrowserRouter as Router } from "react-router-dom";
 import Routes from "./Routes";
-import { useRecoilValue } from "recoil";
-import AccessTokenState, { AccessToken } from "./GlobalState/AccesToken";
+import useAuthentication from "./User/useAuthentication";
+import BackgroundAnimation from "./Common/BackgroundAnimation/BackgroundAnimation";
 
 const App: FunctionComponent = () => {
-  const { accessToken } = useRecoilValue<AccessToken>(AccessTokenState);
+  const { isLoggedIn } = useAuthentication();
 
   return (
     <div className="App">
-      <WithLayout isWrapping={accessToken !== ""}>
-        <Routes />
+      <WithLayout isWrapping={isLoggedIn}>
+        <Router>
+          <Routes />
+        </Router>
       </WithLayout>
     </div>
   );
