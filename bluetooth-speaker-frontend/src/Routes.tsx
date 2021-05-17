@@ -9,8 +9,7 @@ import MusicRoom from "./MusicRoom/MusicRoom";
 import Register from "./User/Register/Register";
 import PrivateRoute from "./Common/privateRoute/privateRoute";
 import MusicRooms from "./MusicRooms/MusicRooms";
-import useAuthentication from "./User/useAuthentication";
-import WithLayout from "./Common/Layout/withLayout";
+import CreateMusicRoom from "./MusicRoom/CreateMusicRoom";
 
 export type PreviousLocationState = {
   previousPath: string;
@@ -20,14 +19,7 @@ const Routes: FunctionComponent = () => {
   const { state } = useLocation<PreviousLocationState>();
 
   const musicRoomsRoute = useMemo(() => {
-    if (state?.previousPath === "/login" || state?.previousPath === "/register") {
-      return {
-        classNames: "drop-bottom",
-        timeout: 1000,
-      };
-    }
-
-    if (state?.previousPath === "/musicroom") {
+    if (state?.previousPath.slice(0, 10) === "/musicroom") {
       return {
         classNames: "glide-right",
         timeout: 1000,
@@ -36,7 +28,7 @@ const Routes: FunctionComponent = () => {
 
     return {
       classNames: "glide-left",
-      timeout: 900,
+      timeout: 1000,
     };
   }, [state]);
 
@@ -107,8 +99,11 @@ const Routes: FunctionComponent = () => {
       <PrivateRoute exact path="/" transitionProps={musicRoomsRoute}>
         <MusicRooms />
       </PrivateRoute>
-      <PrivateRoute exact path="/musicroom" transitionProps={musicRoomRoute}>
+      <PrivateRoute exact path="/musicroom/:id" transitionProps={musicRoomRoute}>
         <MusicRoom />
+      </PrivateRoute>
+      <PrivateRoute exact path="/create-musicroom" transitionProps={musicRoomRoute}>
+        <CreateMusicRoom />
       </PrivateRoute>
     </Navigation>
   );
