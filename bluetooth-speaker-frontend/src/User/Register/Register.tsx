@@ -13,7 +13,7 @@ const Register: FunctionComponent = () => {
   const { pathname } = useLocation();
 
   return isLoggedIn ? (
-    <Redirect to={{ pathname: "/musicrooms", state: { previousPath: pathname } }} />
+    <Redirect to={{ pathname: "/", state: { previousPath: pathname } }} />
   ) : (
     <Screen>
       <Row className="register-container" justify="center" align="middle">
