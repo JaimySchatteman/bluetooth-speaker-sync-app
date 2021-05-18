@@ -16,7 +16,7 @@ class MusicroomSeeder extends Seeder
     {
         DB::table('musicrooms')->insert([
             'title' => 'Arnes music room',
-            'owner_id' => 1
+            'owner_id' => 2
         ]);
     }
 }

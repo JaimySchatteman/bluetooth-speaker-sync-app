@@ -34,7 +34,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 });
 
 // users API
-// Route::get('users', [UserController::class, 'index']);
+Route::get('users', [UserController::class, 'index']);
 // Route::get('users/{id}', [UserController::class, 'show']);
 // Route::put('users/{id}', [UserController::class, 'update']);
 // Route::post('users', [UserController::class, 'create']);

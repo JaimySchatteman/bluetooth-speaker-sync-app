@@ -16,7 +16,7 @@ class MusicroomController extends Controller
     //https://stackoverflow.com/questions/19852927/get-specific-columns-using-with-function-in-laravel-eloquent
     public function show($id)
     {
-        return Musicroom::with('owner', 'queue.tracks')->findOrFail($id);
+        return Musicroom::with('owner', 'users', 'queue.tracks')->findOrFail($id);
     }
 
     public function create(Request $request)
