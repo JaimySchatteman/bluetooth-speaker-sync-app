@@ -55,6 +55,10 @@ const Register: FunctionComponent = () => {
                   required: true,
                   message: "Please enter your password!",
                 },
+                {
+                  min: 6,
+                  message: "Your password has to be at least 6 characters long!",
+                },
               ]}
               hasFeedback
             >
