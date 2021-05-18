@@ -26,6 +26,6 @@ class Musicroom extends Model
 
     public function queue()
     {
-        return $this->hasOne(Queue::class);
+        return $this->hasOne(Queue::class, 'musicroom_id');
     }
 }

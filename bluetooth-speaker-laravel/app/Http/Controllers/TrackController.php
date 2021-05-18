@@ -9,6 +9,10 @@ use App\Models\Queue;
 
 class TrackController extends Controller
 {
+    public function index(){
+        return Track::all();
+    }
+
     public function create(Request $request)
     {
         $track =  Track::firstOrCreate(['url' => $request->url, 'title' => $request->title, 'thumbnail' => $request->thumbnail]);
