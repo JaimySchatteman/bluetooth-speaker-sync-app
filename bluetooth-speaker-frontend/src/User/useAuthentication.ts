@@ -1,23 +1,43 @@
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import http from "../Common/Utilities/HttpModule";
 import camelcaseKeys from "camelcase-keys";
 import { useCookies } from "react-cookie";
 import Token from "./Token";
 import axios from "axios";
+import { useRecoilState } from "recoil";
+import UserState from "../GlobalState/UserState";
+import { User } from "../Common/Objects/User";
 
 const useAuthentication = () => {
   const [cookies, setCookie, removeCookie] = useCookies();
+  const [user, setUser] = useRecoilState(UserState);
 
   const setAxiosAuthHeader = useCallback((): void => {
-    if (cookies.accessToken) {
-      axios.defaults.headers.common = {
-        Authorization: `Bearer ${cookies.accessToken}`,
-      };
+    axios.defaults.headers.common = {
+      Authorization: `Bearer ${cookies.accessToken}`,
+    };
+  }, []);
+
+  const getUser = useCallback(async (): Promise<void> => {
+    try {
+      const {
+        data: { id, name, email },
+      } = await http.get<User>("/api/me");
+      setUser({
+        id: id,
+        name: name,
+        email: email,
+      });
+    } catch (e) {
+      console.log(e);
     }
-  }, [cookies.accessToken]);
+  }, []);
 
   useEffect(() => {
-    setAxiosAuthHeader();
+    if (cookies.accessToken) {
+      setAxiosAuthHeader();
+      if (!user) getUser();
+    }
   }, [cookies.accessToken]);
 
   const handleLogin = useCallback(

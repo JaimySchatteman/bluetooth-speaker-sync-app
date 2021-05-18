@@ -12,12 +12,15 @@ import { CaretDownOutlined, LogoutOutlined, UserOutlined } from "@ant-design/ico
 const { Header } = Layout;
 
 const Navbar: FunctionComponent = () => {
-  const user = useRecoilValue<User>(UserState);
-  const { name } = user;
+  const user = useRecoilValue<User | undefined>(UserState);
   const { handleLogout } = useAuthentication();
 
   const initials = useMemo((): string => {
-    return name.charAt(0).toLocaleUpperCase();
+    console.log(user);
+    if (user) {
+      return user.name.charAt(0).toLocaleUpperCase();
+    }
+    return "";
   }, [name]);
 
   const dropdownMenu = useMemo(
