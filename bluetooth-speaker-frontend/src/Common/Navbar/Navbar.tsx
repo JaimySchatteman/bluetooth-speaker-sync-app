@@ -16,12 +16,11 @@ const Navbar: FunctionComponent = () => {
   const { handleLogout } = useAuthentication();
 
   const initials = useMemo((): string => {
-    console.log(user);
     if (user) {
       return user.name.charAt(0).toLocaleUpperCase();
     }
     return "";
-  }, [name]);
+  }, [user]);
 
   const dropdownMenu = useMemo(
     () => (
