@@ -11,7 +11,8 @@ class Musicroom extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title'
+        'title',
+        'owner_id'
     ];
 
     public function owner(){

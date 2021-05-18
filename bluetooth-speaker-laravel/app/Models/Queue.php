@@ -9,6 +9,10 @@ class Queue extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'musicroom_id'
+    ];
+
     public function musicroom()
     {
         return $this->hasOne(Musicroom::class);
