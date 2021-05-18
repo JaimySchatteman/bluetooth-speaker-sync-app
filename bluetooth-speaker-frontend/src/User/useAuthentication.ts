@@ -13,10 +13,12 @@ const useAuthentication = () => {
   const [user, setUser] = useRecoilState(UserState);
 
   const setAxiosAuthHeader = useCallback((): void => {
-    axios.defaults.headers.common = {
-      Authorization: `Bearer ${cookies.accessToken}`,
-    };
-  }, []);
+    if (cookies.accessToken) {
+      axios.defaults.headers.common = {
+        Authorization: `Bearer ${cookies.accessToken}`,
+      };
+    }
+  }, [cookies.accessToken]);
 
   const getUser = useCallback(async (): Promise<void> => {
     try {
