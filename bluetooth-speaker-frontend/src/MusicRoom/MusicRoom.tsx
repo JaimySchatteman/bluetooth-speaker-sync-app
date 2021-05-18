@@ -45,7 +45,7 @@ const MusicRoom = () => {
 
   const getMusicRoom = useCallback(async () => {
     try {
-      const { data } = await http.get<MusicRoomType>("musicroom/" + id);
+      const { data } = await http.get<MusicRoomType>("api/musicroom/" + id);
       console.log(data);
     } catch (e) {
       console.log(e);

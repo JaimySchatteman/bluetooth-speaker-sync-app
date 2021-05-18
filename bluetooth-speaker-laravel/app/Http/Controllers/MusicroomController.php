@@ -4,23 +4,24 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Musicroom;
+use App\Models\Queue;
+use Illuminate\Support\Facades\Log;
 
 class MusicroomController extends Controller
 {
     public function index(){
-        return Musicroom::all();
+        return Musicroom::with('owner', 'users')->get();
     }
 
-    //niet zeker of dit juist is
     //https://stackoverflow.com/questions/19852927/get-specific-columns-using-with-function-in-laravel-eloquent
     public function show($id)
     {
-        return Musicroom::with('queue.tracks')->findOrFail($id);
+        return Musicroom::with('owner', 'queue.tracks')->findOrFail($id);
     }
 
     public function create(Request $request)
     {
-        $musicroom =  Musicroom::firstOrCreate(['title' => $request->title]);
+        $musicroom =  Musicroom::firstOrCreate(['title' => $request->title, 'owner_id' => $request->owner_id]);
         $queue = Queue::create(['musicroom_id' => $musicroom->id]);
 
         return $musicroom;
@@ -28,8 +29,8 @@ class MusicroomController extends Controller
 
     public function destroy($id)
     {
-        $user = Musicroom::findOrFail($id);
-        $user->delete();
+        $musicroom = Musicroom::findOrFail($id);
+        $musicroom->delete();
 
         return response(204);
     }

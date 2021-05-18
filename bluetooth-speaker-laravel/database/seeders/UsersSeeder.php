@@ -21,5 +21,11 @@ class UsersSeeder extends Seeder
             'password' => Hash::make('password'),
             'musicroom_id' => 1
         ]);
+        DB::table('users')->insert([
+            'name' => 'Nel Lisabeth',
+            'email' => 'nel@gmail.com',
+            'password' => Hash::make('password'),
+            'musicroom_id' => 1
+        ]);
     }
 }

@@ -17,7 +17,7 @@ const MusicRooms = () => {
 
   const getMusicRooms = useCallback(async (): Promise<void> => {
     try {
-      const { data } = await http.get("musicrooms");
+      const { data } = await http.get("api/musicrooms");
       console.log(data);
       setMusicRooms(data);
     } catch (e) {
@@ -44,7 +44,7 @@ const MusicRooms = () => {
           ? musicRooms.map(({ id, title }) => {
               return (
                 <Col key={id} xs={24} sm={12} md={8} lg={8} xl={6}>
-                  <Link to={{ pathname: "/musicroom/" + id, state: { previousPath: pathname } }}>
+                  <Link to={{ pathname: "musicroom/" + id, state: { previousPath: pathname } }}>
                     <Card
                       hoverable
                       loading={isLoading}

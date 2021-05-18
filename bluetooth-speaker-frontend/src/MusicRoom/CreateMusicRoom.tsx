@@ -12,7 +12,7 @@ import { MusicRoomType } from "../Common/Objects/MusicRoomType";
 const CreateMusicRoom = () => {
   const handleCreateRoom = useCallback(async (values: any) => {
     try {
-      const { data } = await http.post<MusicRoomType>("musicroom", { title: values.title });
+      const { data } = await http.post<MusicRoomType>("api/musicroom", values );
       console.log(data);
     } catch (e) {
       console.log(e);
