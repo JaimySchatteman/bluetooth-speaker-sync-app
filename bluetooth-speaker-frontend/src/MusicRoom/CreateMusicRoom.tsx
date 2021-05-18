@@ -10,16 +10,23 @@ import http from "../Common/Utilities/HttpModule";
 import { MusicRoomType } from "../Common/Objects/MusicRoomType";
 import { useRecoilValue } from "recoil";
 import UserState from "../GlobalState/UserState";
+import { useHistory, useLocation } from "react-router-dom";
+import { PreviousLocationState } from "../Routes";
 
 const CreateMusicRoom = () => {
   const user = useRecoilValue(UserState);
+  const history = useHistory();
+  const { pathname } = useLocation();
+  const { state } = useLocation<PreviousLocationState>();
 
   const handleCreateRoom = useCallback(
     async (values: any) => {
       try {
         if (user) {
-          const { data } = await http.post<MusicRoomType>("api/musicroom", { title: values.title, owner_id: user.id });
-          console.log(data);
+          const {
+            data: { id },
+          } = await http.post<MusicRoomType>("api/musicroom", { title: values.title, owner_id: user.id });
+          history.push("musicroom/" + id, { previousPath: pathname });
         }
       } catch (e) {
         console.log(e);
@@ -53,7 +60,6 @@ const CreateMusicRoom = () => {
           </Form>
         </Col>
       </Row>
-      <BackgroundAnimation />
     </Screen>
   );
 };

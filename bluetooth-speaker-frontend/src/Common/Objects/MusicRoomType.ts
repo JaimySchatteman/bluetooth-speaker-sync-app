@@ -5,5 +5,6 @@ export type MusicRoomType = {
   id: number;
   title: string;
   queue: Track[];
-  participants: User[];
+  owner: User;
+  users: User[];
 };
