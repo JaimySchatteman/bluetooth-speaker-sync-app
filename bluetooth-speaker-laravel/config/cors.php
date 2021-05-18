@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'paths' => ['api/*', 'musicrooms', 'musicroom/*', 'sanctum/csrf-cookie'],
+    'paths' => ['api/*', 'musicrooms', 'musicroom/*', 'sanctum/csrf-cookie', '*'],
 
     'allowed_methods' => ['*'],
 
