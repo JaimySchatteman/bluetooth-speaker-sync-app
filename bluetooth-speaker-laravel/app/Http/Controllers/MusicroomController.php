@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Musicroom;
 use App\Models\Queue;
+use App\Models\Track;
+use App\Models\User;
 use Illuminate\Support\Facades\Log;
 
 class MusicroomController extends Controller
@@ -27,6 +29,15 @@ class MusicroomController extends Controller
         return $musicroom;
     }
 
+    public function addUser(Request $request, $id)
+    {
+        $musicroom = Musicroom::findOrFail($id);
+        $user = User::findOrFail($request->user_id);
+        $musicroom->users()->save($user);
+
+        return $musicroom;
+    }
+
     public function destroy($id)
     {
         $musicroom = Musicroom::findOrFail($id);
@@ -43,6 +54,15 @@ class MusicroomController extends Controller
         $track = Track::findOrFail($track_id);
 
         $queue->tracks()->detach($track);
+
+        return response(204);
+    }
+
+    public function destroyUser($id, $user_id){
+
+        $musicroom = Musicroom::findOrFail($id);
+
+        $musicroom->users()->where('id',$user_id)->delete();
 
         return response(204);
     }

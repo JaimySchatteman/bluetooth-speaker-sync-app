@@ -15,7 +15,7 @@ class Queue extends Model
 
     public function musicroom()
     {
-        return $this->hasOne(Musicroom::class);
+        return $this->belongsTo(Musicroom::class);
     }
 
     public function tracks()

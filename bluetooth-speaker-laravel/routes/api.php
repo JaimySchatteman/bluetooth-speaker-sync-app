@@ -47,10 +47,14 @@ Route::get('users', [UserController::class, 'index']);
 Route::get('/musicrooms', [MusicroomController::class, 'index']);
 Route::get('/musicroom/{id}', [MusicroomController::class, 'show']);
 
+Route::post('/musicroom/{id}', [MusicroomController::class, 'addUser']);
+Route::delete('/musicroom/{id}/user/{user_id}', [MusicroomController::class, 'destroyUser']);
+
 Route::delete('/musicroom/{id}', [MusicroomController::class, 'destroy']);
-Route::delete('/musicroom/{musicroom_id}/tracks/{track_id}', [MusicroomControlle::class, 'destroyTrack']);
+Route::delete('/musicroom/{musicroom_id}/track/{track_id}', [MusicroomController::class, 'destroyTrack']);
 
 Route::post('/musicroom', [MusicroomController::class, 'create']);
 
 Route::post('/track', [TrackController::class, 'create']);
+Route::get('/track', [TrackController::class, 'index']);
 
