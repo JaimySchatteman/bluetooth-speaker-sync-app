@@ -8,22 +8,33 @@ import { Link, Screen } from "react-tiger-transition";
 import "./CreateMusicRoom.less";
 import http from "../Common/Utilities/HttpModule";
 import { MusicRoomType } from "../Common/Objects/MusicRoomType";
+import { useRecoilValue } from "recoil";
+import UserState from "../GlobalState/UserState";
 
 const CreateMusicRoom = () => {
-  const handleCreateRoom = useCallback(async (values: any) => {
-    try {
-      const { data } = await http.post<MusicRoomType>("api/musicroom", values );
-      console.log(data);
-    } catch (e) {
-      console.log(e);
-    }
-  }, []);
+  const user = useRecoilValue(UserState);
+
+  const handleCreateRoom = useCallback(
+    async (values: any) => {
+      try {
+        if (user) {
+          const { data } = await http.post<MusicRoomType>("api/musicroom", { title: values.title, owner_id: user.id });
+          console.log(data);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    [user],
+  );
 
   return (
     <Screen>
       <Row className="create-room-container" justify="center" align="middle">
         <Col className="form-container" flex="auto">
-          <h1>Enter a title</h1>
+          <h1>
+            Enter a name for <br /> your music room
+          </h1>
           <h2>
             Be orignal! <SmileOutlined />
           </h2>
