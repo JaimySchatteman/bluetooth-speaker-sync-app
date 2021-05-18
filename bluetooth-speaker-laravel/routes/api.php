@@ -35,10 +35,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 // users API
 Route::get('users', [UserController::class, 'index']);
-// Route::get('users/{id}', [UserController::class, 'show']);
+ Route::get('users/{id}', [UserController::class, 'show']);
 // Route::put('users/{id}', [UserController::class, 'update']);
 // Route::post('users', [UserController::class, 'create']);
-// Route::delete('users/{id}', [UserController::class, 'destroy']);
+ Route::delete('users/{id}', [UserController::class, 'destroy']);
 
 
 
@@ -47,8 +47,8 @@ Route::get('users', [UserController::class, 'index']);
 Route::get('/musicrooms', [MusicroomController::class, 'index']);
 Route::get('/musicroom/{id}', [MusicroomController::class, 'show']);
 
-Route::delete('/musicroom/{id}', [MusicroomController::class], 'destroy');
-Route::delete('/musicroom/{musicroom_id}/tracks/{track_id}', [MusicroomControlle::class], 'destroyTrack');
+Route::delete('/musicroom/{id}', [MusicroomController::class, 'destroy']);
+Route::delete('/musicroom/{musicroom_id}/tracks/{track_id}', [MusicroomControlle::class, 'destroyTrack']);
 
 Route::post('/musicroom', [MusicroomController::class, 'create']);
 
