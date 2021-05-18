@@ -13,12 +13,12 @@ const { Header } = Layout;
 
 const Navbar: FunctionComponent = () => {
   const user = useRecoilValue<User>(UserState);
-  const { userName } = user;
+  const { name } = user;
   const { handleLogout } = useAuthentication();
 
   const initials = useMemo((): string => {
-    return userName.charAt(0).toLocaleUpperCase();
-  }, [userName]);
+    return name.charAt(0).toLocaleUpperCase();
+  }, [name]);
 
   const dropdownMenu = useMemo(
     () => (
