@@ -51,6 +51,6 @@ class User extends Authenticatable
     }
 
     public function musicroomOwner(){
-        return $this->hasOne(Musicroom::class)
+        return $this->hasOne(Musicroom::class);
     }
 }
