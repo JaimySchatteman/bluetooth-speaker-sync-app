@@ -49,4 +49,8 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Musicroom::class);
     }
+
+    public function musicroomOwner(){
+        return $this->hasOne(Musicroom::class)
+    }
 }

@@ -16,7 +16,7 @@ class CreateMusicroomsTable extends Migration
         Schema::create('musicrooms', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->unsignedBigInteger('owner_id');
+            $table->unsignedBigInteger('owner_id')->nullable();;
             $table->foreign('owner_id')->references('id')->on('users');
             $table->timestamps();
         });
