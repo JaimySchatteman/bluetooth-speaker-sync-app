@@ -7,15 +7,7 @@ import Track from "../Common/Objects/Track";
 // @ts-ignore
 import { Screen, Link } from "react-tiger-transition";
 import { useLocation, useParams } from "react-router-dom";
-import {
-  ArrowLeftOutlined,
-  CustomerServiceOutlined,
-  HomeOutlined,
-  PlaySquareOutlined,
-  TeamOutlined,
-  UnorderedListOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
+import { ArrowLeftOutlined, CustomerServiceOutlined, TeamOutlined, UserOutlined } from "@ant-design/icons";
 import { Avatar, Col, Row, Space } from "antd";
 import http from "../Common/Utilities/HttpModule";
 import { MusicRoomType } from "../Common/Objects/MusicRoomType";
@@ -141,7 +133,7 @@ const MusicRoom = () => {
       </Row>
 
       <Row>
-        <Col xs={24} lg={12}>
+        <Col xs={24} lg={12} xl={16}>
           <SearchBarYoutube onAddToQueue={handleAddToQueue} />
         </Col>
       </Row>

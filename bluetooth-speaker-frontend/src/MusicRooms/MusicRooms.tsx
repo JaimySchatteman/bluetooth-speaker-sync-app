@@ -7,20 +7,12 @@ import http from "../Common/Utilities/HttpModule";
 import "./MusicRooms.less";
 import { Card, Avatar, Col, Row, Space, Button, Skeleton } from "antd";
 import { MusicRoomType } from "../Common/Objects/MusicRoomType";
-import {
-  ArrowRightOutlined,
-  CrownOutlined,
-  CustomerServiceOutlined,
-  PlusCircleOutlined,
-  TeamOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
+import { ArrowRightOutlined, PlusCircleOutlined, TeamOutlined, UserOutlined } from "@ant-design/icons";
 import Meta from "antd/es/card/Meta";
 import { PreviousLocationState } from "../Routes";
 
 const MusicRooms = () => {
   const { pathname } = useLocation();
-  const { state } = useLocation<PreviousLocationState>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [musicRooms, setMusicRooms] = useState<MusicRoomType[] | undefined>();
 

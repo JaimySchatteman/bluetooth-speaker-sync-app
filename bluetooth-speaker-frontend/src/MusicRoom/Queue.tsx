@@ -1,5 +1,4 @@
 import React, { FunctionComponent } from "react";
-
 import { List } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import Track from "../Common/Objects/Track";

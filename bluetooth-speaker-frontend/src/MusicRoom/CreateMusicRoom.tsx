@@ -1,23 +1,19 @@
 import React, { useCallback } from "react";
-import PropTypes from "prop-types";
 import { Button, Col, Form, Input, Row, Space } from "antd";
-import { LockOutlined, MailOutlined, SmileOutlined } from "@ant-design/icons";
-import BackgroundAnimation from "../Common/BackgroundAnimation/BackgroundAnimation";
+import { SmileOutlined } from "@ant-design/icons";
 // @ts-ignore
-import { Link, Screen } from "react-tiger-transition";
+import { Screen } from "react-tiger-transition";
 import "./CreateMusicRoom.less";
 import http from "../Common/Utilities/HttpModule";
 import { MusicRoomType } from "../Common/Objects/MusicRoomType";
 import { useRecoilValue } from "recoil";
 import UserState from "../GlobalState/UserState";
 import { useHistory, useLocation } from "react-router-dom";
-import { PreviousLocationState } from "../Routes";
 
 const CreateMusicRoom = () => {
   const user = useRecoilValue(UserState);
   const history = useHistory();
   const { pathname } = useLocation();
-  const { state } = useLocation<PreviousLocationState>();
 
   const handleCreateRoom = useCallback(
     async (values: any) => {

@@ -1,6 +1,6 @@
-import React, { FunctionComponent, useEffect, useMemo } from "react";
+import React, { FunctionComponent, useMemo } from "react";
 import Login from "./User/Login/Login";
-import { useHistory, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 // @ts-ignore
 import { Navigation, Route } from "react-tiger-transition";
 import "react-tiger-transition/styles/main.min.css";
@@ -62,8 +62,6 @@ const Routes: FunctionComponent = () => {
   }, [state]);
 
   const musicRoomsRoute = useMemo(() => {
-    console.log("previous " + state?.previousPath);
-    console.log("current " + pathname);
     if (state?.previousPath === "/login" || state?.previousPath === "/register") {
       return {
         classNames: "drop-bottom",
@@ -96,7 +94,7 @@ const Routes: FunctionComponent = () => {
       classNames: "glide-right",
       timeout: 1000,
     };
-  }, [state]);
+  }, [pathname, state?.previousPath]);
 
   const createMusicRoomRoute = useMemo(() => {
     if (pathname.slice(0, 10) === "/musicroom") {
@@ -131,7 +129,7 @@ const Routes: FunctionComponent = () => {
       classNames: "drop-bottom",
       timeout: 1000,
     };
-  }, [state]);
+  }, [pathname, state?.previousPath]);
 
   const musicRoomRoute = useMemo(() => {
     if (pathname === "/" || pathname === "/create") {
@@ -145,7 +143,7 @@ const Routes: FunctionComponent = () => {
       classNames: "glide-left",
       timeout: 1000,
     };
-  }, [state]);
+  }, [pathname]);
 
   return (
     <Navigation>

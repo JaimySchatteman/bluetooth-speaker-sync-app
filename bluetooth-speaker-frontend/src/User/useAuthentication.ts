@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo } from "react";
 import http from "../Common/Utilities/HttpModule";
 import camelcaseKeys from "camelcase-keys";
 import { useCookies } from "react-cookie";
@@ -85,8 +85,8 @@ const useAuthentication = () => {
   const handleLogout = useCallback(async () => {
     try {
       await http.post("auth/logout");
-      removeCookie("accessToken");
       setUser(undefined);
+      removeCookie("accessToken");
     } catch (e) {
       console.log(e);
     }
