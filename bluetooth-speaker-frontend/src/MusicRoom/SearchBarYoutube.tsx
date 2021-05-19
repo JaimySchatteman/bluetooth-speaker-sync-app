@@ -24,7 +24,7 @@ const SearchBarYoutube: FunctionComponent<SearchBarYoutubeProps> = ({ onAddToQue
       const tempVideos: Track[] = [];
       results.items.forEach((item: any) => {
         tempVideos.push({
-          id: item.id.videoId,
+          url: "https://www.youtube.com/watch?v=" + item.id.videoId,
           title: item.snippet.title,
           thumbnail: item.snippet.thumbnails.default.url,
         });
@@ -50,13 +50,16 @@ const SearchBarYoutube: FunctionComponent<SearchBarYoutubeProps> = ({ onAddToQue
     focus();
   };
 
-  const onSelect = useCallback((title: string) => {
-    console.log(title);
-    console.log(videos);
-    const videoToAdd: Track | undefined = videos.find(video => video.title === title);
-    console.log(videoToAdd);
-    videoToAdd && onAddToQueue(videoToAdd);
-  }, []);
+  const onSelect = useCallback(
+    (title: string) => {
+      console.log(title);
+      console.log(videos);
+      const videoToAdd: Track | undefined = videos.find(video => video.title === title);
+      console.log(videoToAdd);
+      videoToAdd && onAddToQueue(videoToAdd);
+    },
+    [onAddToQueue, videos],
+  );
 
   const onChange = useCallback((data: string) => {
     setValue(data);

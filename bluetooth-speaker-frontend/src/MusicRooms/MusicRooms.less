@@ -2,6 +2,8 @@
 
 .music-rooms {
   padding: @padding-xl @padding-xxl;
+  overflow: scroll !important;
+  background-color: @light-grey-color;
 
   h1.musicrooms-title {
     font-size: @font-size-xxl;
@@ -22,14 +24,46 @@
 
         .ant-card-body {
           .ant-row {
-            .ant-row {
-              h3.amount-participants {
+            .owner-container, .users-container {
+              display: flex;
+              align-items: center;
+              margin-bottom: @margin-sm;
+            }
+
+            .owner-container {
+              svg {
+                font-size: 20px;
+              }
+              h3.owner-name {
                 margin-bottom: 0;
                 margin-left: @margin-xss;
                 color: @normal-grey-color;
                 font-size: 20px;
               }
             }
+
+            .users-container {
+              .ant-row {
+                width: 100%;
+
+                .ant-col {
+                  &.user-count {
+                    display: flex;
+                    align-items: center;
+
+                    h3.user-count-text {
+                      font-size: 20px;
+                      margin-bottom: 0;
+                    }
+
+                  }
+
+                }
+              }
+            }
+
+
+
           }
         }
       }

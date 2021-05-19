@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useMemo } from "react";
+import React, { FunctionComponent, useMemo } from "react";
 import Login from "./User/Login/Login";
 import { useLocation } from "react-router-dom";
 // @ts-ignore
@@ -17,34 +17,7 @@ export type PreviousLocationState = {
 
 const Routes: FunctionComponent = () => {
   const { state } = useLocation<PreviousLocationState>();
-
-  const musicRoomsRoute = useMemo(() => {
-    if (state?.previousPath.slice(0, 10) === "/musicroom") {
-      return {
-        classNames: "glide-right",
-        timeout: 1000,
-      };
-    }
-
-    return {
-      classNames: "glide-left",
-      timeout: 1000,
-    };
-  }, [state]);
-
-  const musicRoomRoute = useMemo(() => {
-    if (state?.previousPath === "/") {
-      return {
-        classNames: "glide-left",
-        timeout: 1000,
-      };
-    }
-
-    return {
-      classNames: "glide-right",
-      timeout: 1000,
-    };
-  }, [state]);
+  const { pathname } = useLocation();
 
   const loginRouteTransition = useMemo(() => {
     if (state?.previousPath === "/register") {
@@ -88,6 +61,90 @@ const Routes: FunctionComponent = () => {
     };
   }, [state]);
 
+  const musicRoomsRoute = useMemo(() => {
+    if (state?.previousPath === "/login" || state?.previousPath === "/register") {
+      return {
+        classNames: "drop-bottom",
+        timeout: 1000,
+      };
+    }
+
+    if (state?.previousPath.slice(0, 10) === "/musicroom") {
+      return {
+        classNames: "glide-right",
+        timeout: 1000,
+      };
+    }
+
+    if (pathname.slice(0, 10) === "/musicroom") {
+      return {
+        classNames: "glide-left",
+        timeout: 1000,
+      };
+    }
+
+    if (pathname === "/create") {
+      return {
+        classNames: "drop-bottom",
+        timeout: 1000,
+      };
+    }
+
+    return {
+      classNames: "glide-right",
+      timeout: 1000,
+    };
+  }, [pathname, state?.previousPath]);
+
+  const createMusicRoomRoute = useMemo(() => {
+    if (pathname.slice(0, 10) === "/musicroom") {
+      return {
+        classNames: "glide-left",
+        timeout: 1000,
+      };
+    }
+
+    if (state?.previousPath.slice(0, 10) === "/musicroom") {
+      return {
+        classNames: "glide-right",
+        timeout: 1000,
+      };
+    }
+
+    if (state?.previousPath.slice(0, 10) === "/") {
+      return {
+        classNames: "drop-bottom",
+        timeout: 1000,
+      };
+    }
+
+    if (pathname === "/create") {
+      return {
+        classNames: "glide-right",
+        timeout: 1000,
+      };
+    }
+
+    return {
+      classNames: "drop-bottom",
+      timeout: 1000,
+    };
+  }, [pathname, state?.previousPath]);
+
+  const musicRoomRoute = useMemo(() => {
+    if (pathname === "/" || pathname === "/create") {
+      return {
+        classNames: "glide-right",
+        timeout: 1000,
+      };
+    }
+
+    return {
+      classNames: "glide-left",
+      timeout: 1000,
+    };
+  }, [pathname]);
+
   return (
     <Navigation>
       <Route path="/login" transitionProps={loginRouteTransition}>
@@ -99,11 +156,11 @@ const Routes: FunctionComponent = () => {
       <PrivateRoute exact path="/" transitionProps={musicRoomsRoute}>
         <MusicRooms />
       </PrivateRoute>
+      <PrivateRoute exact path="/create" transitionProps={createMusicRoomRoute}>
+        <CreateMusicRoom />
+      </PrivateRoute>
       <PrivateRoute exact path="/musicroom/:id" transitionProps={musicRoomRoute}>
         <MusicRoom />
-      </PrivateRoute>
-      <PrivateRoute exact path="/create-musicroom" transitionProps={musicRoomRoute}>
-        <CreateMusicRoom />
       </PrivateRoute>
     </Navigation>
   );

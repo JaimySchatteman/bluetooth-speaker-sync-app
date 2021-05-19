@@ -5,16 +5,81 @@
   padding: @padding-md @padding-xxl @padding-xl @padding-xxl;
   overflow-y: scroll !important;
 
+  .ant-row.music-room-info {
+    margin-top: @margin-lg;
+    margin-bottom: @margin-md;
+
+    .title-container {
+      display: flex;
+      align-items: center;
+
+      h1 {
+        font-size: @font-size-xxl;
+        font-weight: @font-weight-bold;
+        margin-bottom: 0;
+      }
+
+    }
+
+    .musicroom-user-info {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .owner {
+        svg {
+          color: @normal-grey-color;
+        }
+
+        h3.owner-name {
+          font-size: @font-size-base;
+          color: @normal-grey-color;
+          padding-top: @padding-xs;
+
+        }
+      }
+
+      .users {
+        svg {
+          font-size: @font-size-lg;
+          color: @normal-grey-color;
+        }
+
+      }
+    }
+  }
+
+  .auto-complete-search {
+    width: 100%;
+    border-radius: @border-radius-md !important;
+    padding-right: @padding-sm;
+  }
+
+
   .ant-row.music-room-content {
     margin-top: @margin-lg;
+
     .ant-col {
-      h1 {
-        font-size: @font-size-xl;
-        font-weight: @font-weight-bold;
-      }
       .player-wrapper {
         position: relative;
         padding-top: 56.25%; /* Player ratio: 100 / (1280 / 720) */
+
+        .react-player-substitution {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: @normal-grey-color;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          img.music-icon {
+            max-width: 10%;
+          }
+        }
 
         .react-player {
           position: absolute;
@@ -26,18 +91,12 @@
   }
 
   .queue-container {
-    margin-top: @margin-xxl;
-    .auto-complete-search {
-      width: 100%;
-      border-radius: @border-radius-md !important;
-    }
 
     .queue-title {
       padding-left: @padding-xs;
       font-size: @font-size-card-title;
       font-weight: @font-weight-semi-bold;
       color: @dark-grey-color;
-      margin-top: @margin-lg;
 
       img {
         height: @font-size-card-title;

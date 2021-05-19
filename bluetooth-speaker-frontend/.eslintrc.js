@@ -4,7 +4,10 @@ module.exports = {
     "eslint:recommended",
     "plugin:react/recommended", // Uses the recommended rules from @eslint-plugin-react
     "plugin:@typescript-eslint/eslint-recommended", // Uses the recommended rules from the @typescript-eslint/eslint-plugin
-    "plugin:@typescript-eslint/recommended", // Uses the recommended rules from the @typescript-eslint/eslint-plugin
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react-hooks/recommended",
+
+    // Uses the recommended rules from the @typescript-eslint/eslint-plugin
     // Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
   ],
   parser: "@typescript-eslint/parser", // Specifies the ESLint parser
@@ -21,7 +24,7 @@ module.exports = {
       arrowFunctions: true,
     },
   },
-  plugins: ["react", "prettier"],
+  plugins: ["react", "prettier", "react-hooks"],
   settings: {
     react: {
       version: "detect", // Tells eslint-plugin-react to automatically detect the version of React to use
@@ -46,6 +49,8 @@ module.exports = {
     "import/prefer-default-export": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-var-requires": "off",
-    "@typescript-eslint/ban-ts-comment": "off"
+    "@typescript-eslint/ban-ts-comment": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
   },
 };
