@@ -46,14 +46,14 @@ class MusicroomController extends Controller
         return response(204);
     }
 
-    //geen idee of dit juist is
-    //https://appdividend.com/2018/05/17/laravel-many-to-many-relationship-example/
-    public function destroyTrack($musicroom_id, $track_id){
-        $queue = Queue::where('musicroom_id', $musicroom_id);
+    public function destroyTrack($id, $track_id){
+        $queue = Queue::whereHas('musicroom', function($q) use($id) {
+            $q->where('id', 'like',  $id );
+        })->get();
 
         $track = Track::findOrFail($track_id);
 
-        $queue->tracks()->detach($track);
+        $track->queues()->detach($queue);
 
         return response(204);
     }
