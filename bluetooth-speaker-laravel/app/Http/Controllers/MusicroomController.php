@@ -62,7 +62,7 @@ class MusicroomController extends Controller
 
         $musicroom = Musicroom::findOrFail($id);
 
-        $musicroom->users()->where('id',$user_id)->delete();
+        $musicroom->users()->where('id',$user_id)->update(['musicroom_id' => null]);
 
         return response(204);
     }
