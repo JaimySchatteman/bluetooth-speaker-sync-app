@@ -21,10 +21,10 @@ type MusicRoomRouteParams = {
 };
 
 const MusicRoom = () => {
-  const { pathname } = useLocation();
-  const { id } = useParams<MusicRoomRouteParams>();
   const [musicRoom, setMusicRoom] = useState<MusicRoomType>();
+  const { id } = useParams<MusicRoomRouteParams>();
   const user = useRecoilValue(UserState);
+  const { pathname } = useLocation();
 
   const getMusicRoom = useCallback(async () => {
     try {
@@ -37,7 +37,7 @@ const MusicRoom = () => {
 
   const addUserToMusicRoom = useCallback(async () => {
     try {
-      const { data } = await http.post<MusicRoomType>("musicroom/" + id, { user_id: user?.id });
+      await http.post<MusicRoomType>("musicroom/" + id, { user_id: user?.id });
     } catch (e) {
       console.log(e);
     }
@@ -61,10 +61,6 @@ const MusicRoom = () => {
     };
   }, [addUserToMusicRoom, deleteUserFromMusicRoom, getMusicRoom]);
 
-  const handleRemoveFromQueue = useCallback((id: string) => {
-    console.log("delete");
-  }, []);
-
   const updateQueue = useCallback(
     (newQueue: Track[]) => {
       if (musicRoom) {
@@ -74,6 +70,20 @@ const MusicRoom = () => {
       }
     },
     [musicRoom],
+  );
+
+  const handleRemoveFromQueue = useCallback(
+    async (trackId: number) => {
+      await http.delete("musicroom/" + musicRoom?.id + "/track/" + trackId);
+      if (musicRoom) {
+        let newQueue: Track[] = [...musicRoom.queue.tracks];
+        newQueue = newQueue.filter(({ id }: Track) => {
+          return id !== trackId;
+        });
+        updateQueue(newQueue);
+      }
+    },
+    [musicRoom, updateQueue],
   );
 
   const handleAddToQueue = useCallback(

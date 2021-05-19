@@ -85,8 +85,8 @@ const useAuthentication = () => {
   const handleLogout = useCallback(async () => {
     try {
       await http.post("auth/logout");
-      removeCookie("accessToken");
       setUser(undefined);
+      removeCookie("accessToken");
     } catch (e) {
       console.log(e);
     }
