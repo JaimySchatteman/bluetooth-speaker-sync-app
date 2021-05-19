@@ -15,13 +15,13 @@ const Queue: FunctionComponent<QueueProps> = ({ queue, onRemoveFromQueue }: Queu
       itemLayout="horizontal"
       bordered={false}
       dataSource={queue}
-      renderItem={({ id, title, thumbnail }) => (
-        <List.Item key={id} className="device-list-item">
+      renderItem={({ url, title, thumbnail }) => (
+        <List.Item key={url} className="device-list-item">
           <div className="thumbnail-container">
             <img src={thumbnail} alt="thumb" />
           </div>
           <List.Item.Meta title={title} description={"This is a description"} />
-          <div className="delete-icon-container" onClick={() => onRemoveFromQueue(id)}>
+          <div className="delete-icon-container" onClick={() => onRemoveFromQueue(url)}>
             <DeleteOutlined className="delete-icon" />
           </div>
         </List.Item>

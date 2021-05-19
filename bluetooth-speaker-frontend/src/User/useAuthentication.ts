@@ -40,7 +40,7 @@ const useAuthentication = () => {
       setAxiosAuthHeader();
       if (!user) getUser();
     }
-  }, [accessToken, getUser, setAxiosAuthHeader, user]);
+  }, [accessToken]);
 
   const handleLogin = useCallback(
     async (values: any): Promise<void> => {
@@ -85,8 +85,8 @@ const useAuthentication = () => {
   const handleLogout = useCallback(async () => {
     try {
       await http.post("auth/logout");
-      setUser(undefined);
       removeCookie("accessToken");
+      setUser(undefined);
     } catch (e) {
       console.log(e);
     }

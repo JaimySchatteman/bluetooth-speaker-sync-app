@@ -29,7 +29,6 @@ const MusicRoom = () => {
   const getMusicRoom = useCallback(async () => {
     try {
       const { data } = await http.get<MusicRoomType>("musicroom/" + id);
-      console.log(data);
       setMusicRoom(data);
     } catch (e) {
       console.log(e);
@@ -66,10 +65,6 @@ const MusicRoom = () => {
     console.log("delete");
   }, []);
 
-  const handleAddToQueue = useCallback((video: Track) => {
-    console.log("add");
-  }, []);
-
   const updateQueue = useCallback(
     (newQueue: Track[]) => {
       if (musicRoom) {
@@ -79,6 +74,17 @@ const MusicRoom = () => {
       }
     },
     [musicRoom],
+  );
+
+  const handleAddToQueue = useCallback(
+    async (track: Track) => {
+      const { data } = await http.post("track/", { queue_id: musicRoom?.queue.id, ...track });
+      if (musicRoom) {
+        const newQueue = [...musicRoom.queue.tracks, data];
+        updateQueue(newQueue);
+      }
+    },
+    [musicRoom, updateQueue],
   );
 
   const nextVideo = useCallback(() => {
@@ -149,11 +155,7 @@ const MusicRoom = () => {
               <ReactPlayer
                 className="react-player"
                 playing={false}
-                url={
-                  musicRoom && musicRoom.queue.tracks.length > 0
-                    ? "https://www.youtube.com/watch?v=" + musicRoom.queue.tracks[0].id
-                    : undefined
-                }
+                url={musicRoom && musicRoom.queue.tracks.length > 0 ? musicRoom.queue.tracks[0].url : undefined}
                 width="100%"
                 height="100%"
                 onEnded={nextVideo}
