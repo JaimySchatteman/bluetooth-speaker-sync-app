@@ -5,7 +5,7 @@ import { DeleteOutlined } from "@ant-design/icons";
 import Track from "../Common/Objects/Track";
 
 type QueueProps = {
-  queue: Track[];
+  queue?: Track[];
   onRemoveFromQueue: (videoId: string) => void;
 };
 
