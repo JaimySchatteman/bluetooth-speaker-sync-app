@@ -1,10 +1,10 @@
 import { User } from "./User";
-import Track from "./Track";
+import { Queue } from "./Queue";
 
 export type MusicRoomType = {
   id: number;
   title: string;
-  queue: Track[];
+  queue: Queue;
   owner: User;
   users: User[];
 };
