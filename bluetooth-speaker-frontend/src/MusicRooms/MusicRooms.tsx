@@ -26,7 +26,7 @@ const MusicRooms = () => {
 
   const getMusicRooms = useCallback(async (): Promise<void> => {
     try {
-      const { data } = await http.get("api/musicrooms");
+      const { data } = await http.get("musicrooms");
       console.log(data);
       setMusicRooms(data);
     } catch (e) {
@@ -36,11 +36,7 @@ const MusicRooms = () => {
 
   useEffect(() => {
     getMusicRooms().then(() => setIsLoading(false));
-
-    return function () {
-      state.previousPath = "/musicroom";
-    };
-  }, []);
+  }, [getMusicRooms]);
 
   return (
     <Screen className="music-rooms">

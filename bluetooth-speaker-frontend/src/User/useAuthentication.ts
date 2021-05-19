@@ -24,7 +24,7 @@ const useAuthentication = () => {
     try {
       const {
         data: { id, name, email },
-      } = await http.get<User>("/api/me");
+      } = await http.get<User>("me");
       setUser({
         id: id,
         name: name,
@@ -45,7 +45,7 @@ const useAuthentication = () => {
   const handleLogin = useCallback(
     async (values: any): Promise<void> => {
       try {
-        const { data } = await http.post<Token>("api/auth/login", values);
+        const { data } = await http.post<Token>("auth/login", values);
         const tokenData: Token = camelcaseKeys(data);
         tokenData.expires = new Date();
         tokenData.expires.setFullYear(tokenData.expires.getFullYear() + 1);
@@ -63,7 +63,7 @@ const useAuthentication = () => {
   const handleRegister = useCallback(
     async (values: any): Promise<void> => {
       try {
-        const { data } = await http.post<Token>("api/auth/register", values);
+        const { data } = await http.post<Token>("auth/register", values);
         const tokenData: Token = camelcaseKeys(data);
         tokenData.expires = new Date();
         tokenData.expires.setFullYear(tokenData.expires.getFullYear() + 1);
@@ -84,7 +84,7 @@ const useAuthentication = () => {
 
   const handleLogout = useCallback(async () => {
     try {
-      await http.post("api/auth/logout");
+      await http.post("auth/logout");
       removeCookie("accessToken");
       setUser(undefined);
     } catch (e) {
