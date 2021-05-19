@@ -6,7 +6,7 @@
   overflow-y: scroll !important;
 
   .ant-row.music-room-info {
-    margin-top: @margin-lg;
+    margin-top: @margin-md;
     margin-bottom: @margin-md;
 
     .title-container {
@@ -41,26 +41,50 @@
       }
 
       .users {
+        margin-top: -@padding-sm;
+
         svg {
-          font-size: @font-size-lg;
+          font-size: @font-size-xl;
           color: @normal-grey-color;
         }
+
 
       }
     }
   }
 
-  .auto-complete-search {
-    width: 100%;
-    border-radius: @border-radius-md !important;
-    padding-right: @padding-sm;
-  }
-
-
   .ant-row.music-room-content {
     margin-top: @margin-lg;
 
-    .ant-col {
+    .ant-col.player-search-container {
+      .ant-select {
+        width: 100%;
+        margin-bottom: @margin-lg;
+
+        .ant-select-selector {
+          .ant-select-selection-search {
+            .ant-input-group-wrapper {
+              .ant-input-wrapper {
+                input {
+                  border-top-left-radius: 5px;
+                  border-bottom-left-radius: 5px;
+                }
+
+                .ant-input-group-addon {
+                  border-top-right-radius: 5px;
+                  border-bottom-right-radius: 5px;
+
+                  button {
+                    border-top-right-radius: 5px;
+                    border-bottom-right-radius: 5px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
       .player-wrapper {
         position: relative;
         padding-top: 56.25%; /* Player ratio: 100 / (1280 / 720) */
@@ -91,7 +115,7 @@
   }
 
   .queue-container {
-    margin-top: @margin-xss;
+    margin-top: calc(40px + @margin-lg);
 
     .queue-title {
       padding-left: @padding-xs;
@@ -121,20 +145,36 @@
         }
 
         &:hover {
-          box-shadow: 3px 3px 5px rgb(200, 200, 255);
+          box-shadow: 3px 3px 5px rgba(@normal-grey-color, 0.4);
         }
 
         .delete-icon-container {
-          background-color: #cc0505;
           border-radius: 10px;
           padding: @padding-xs @padding-sm;
+          transition: all .2s ease-in;
+
+          &:hover {
+            background-color: #cc0505;
+            transition: all .2s ease-out;
+
+            .delete-icon {
+              svg {
+                path {
+                  fill: @white-color;
+                  transition: all .2s ease-out;
+
+                }
+              }
+            }
+          }
 
           .delete-icon {
             svg {
               font-size: @font-size-lg;
 
               path {
-                fill: white;
+                transition: all .2s ease-in;
+                fill: @normal-grey-color;
               }
             }
           }

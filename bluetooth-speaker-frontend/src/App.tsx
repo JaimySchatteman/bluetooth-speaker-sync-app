@@ -4,7 +4,6 @@ import WithLayout from "./Common/Layout/withLayout";
 import { BrowserRouter as Router } from "react-router-dom";
 import Routes from "./Routes";
 import useAuthentication from "./User/useAuthentication";
-import BackgroundAnimation from "./Common/BackgroundAnimation/BackgroundAnimation";
 
 const App: FunctionComponent = () => {
   const { isLoggedIn } = useAuthentication();

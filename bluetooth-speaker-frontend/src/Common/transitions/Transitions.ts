@@ -8,14 +8,14 @@ room({
   enter: {
     duration: 600,
     easing: "ease",
-    opacity: 0.3,
+    opacity: 1,
     zIndex: 1,
     delay: 0,
   },
   exit: {
     duration: 600,
     easing: "ease",
-    opacity: 0.3,
+    opacity: 1,
     zIndex: 2,
     delay: 0,
   },
@@ -28,14 +28,14 @@ room({
   enter: {
     duration: 600,
     easing: "ease",
-    opacity: 0.3,
+    opacity: 1,
     zIndex: 1,
     delay: 0,
   },
   exit: {
     duration: 600,
     easing: "ease",
-    opacity: 0.3,
+    opacity: 1,
     zIndex: 2,
     delay: 0,
   },

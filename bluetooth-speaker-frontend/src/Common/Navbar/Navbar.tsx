@@ -34,7 +34,7 @@ const Navbar: FunctionComponent = () => {
         </Button>
       </Menu>
     ),
-    [],
+    [handleLogout],
   );
 
   return (

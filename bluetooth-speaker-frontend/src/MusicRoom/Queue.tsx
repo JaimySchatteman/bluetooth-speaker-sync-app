@@ -20,7 +20,7 @@ const Queue: FunctionComponent<QueueProps> = ({ queue, onRemoveFromQueue }: Queu
           <div className="thumbnail-container">
             <img src={thumbnail} alt="thumb" />
           </div>
-          <List.Item.Meta title={title} description={"This is a description"} />
+          <List.Item.Meta title={title} />
           <div className="delete-icon-container" onClick={id ? () => onRemoveFromQueue(id) : undefined}>
             <DeleteOutlined className="delete-icon" />
           </div>

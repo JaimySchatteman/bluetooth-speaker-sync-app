@@ -107,17 +107,9 @@ const MusicRoom = () => {
 
   return (
     <Screen className="music-room">
-      <Row>
-        <Link to={{ pathname: "/", state: { previousPath: pathname } }}>
-          <ArrowLeftOutlined /> Back
-        </Link>
-      </Row>
-
       <Row className="music-room-info">
         <Col className="title-container">
-          <h1>
-            <CustomerServiceOutlined /> {musicRoom?.title}
-          </h1>
+          <h1>{musicRoom?.title}</h1>
         </Col>
         <Col className="musicroom-user-info">
           <Space className="owner" size="small">
@@ -134,6 +126,7 @@ const MusicRoom = () => {
                   return (
                     <Avatar
                       key={id}
+                      size="large"
                       style={{
                         color: "#001529",
                         backgroundColor: "#67EBC1",
@@ -148,15 +141,10 @@ const MusicRoom = () => {
         </Col>
       </Row>
 
-      <Row>
-        <Col xs={24} lg={12} xl={16}>
-          <SearchBarYoutube onAddToQueue={handleAddToQueue} />
-        </Col>
-      </Row>
-
       <Row className="music-room-content" justify="space-between" align="top" gutter={24}>
         {musicRoom && (
           <Col xs={24} lg={12} xl={16} className="player-search-container">
+            <SearchBarYoutube onAddToQueue={handleAddToQueue} />
             <div className="player-wrapper">
               <div className="react-player-substitution">
                 <img className="music-icon" src={musicIcon} alt="music-icon" />
@@ -178,7 +166,7 @@ const MusicRoom = () => {
           <h3 className="queue-title">
             <img src={queueIcon} alt="queue-icon" /> Next Up
           </h3>
-          <Queue queue={musicRoom?.queue.tracks} onRemoveFromQueue={handleRemoveFromQueue} />
+          <Queue queue={musicRoom?.queue.tracks.slice(1, musicRoom?.queue.tracks.length)} onRemoveFromQueue={handleRemoveFromQueue} />
         </Col>
       </Row>
     </Screen>

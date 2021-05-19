@@ -1,6 +1,6 @@
 @import "../App";
 
-.music-rooms {
+.music-rooms-page {
   padding: @padding-xl @padding-xxl;
   overflow: scroll !important;
   background-color: @light-grey-color;
@@ -8,17 +8,32 @@
   h1.musicrooms-title {
     font-size: @font-size-xxl;
     font-weight: @font-weight-bold;
+    padding-left: @padding-xs;
+    margin-bottom: 0;
   }
 
-  .ant-row {
+  .ant-row.music-rooms {
+    margin-top: @margin-lg;
+
     .ant-col {
       .ant-card {
         border-radius: @border-radius-md;
 
         .ant-card-head {
-          .ant-card-head-title {
-            font-size: @font-size-card-title;
-            font-weight: bold;
+          .ant-card-head-wrapper {
+            .ant-card-head-title {
+              font-size: @font-size-card-title;
+              font-weight: bold;
+            }
+
+            .ant-card-extra {
+              .ant-space {
+                .ant-space-item {
+                  font-weight: bold;
+
+                }
+              }
+            }
           }
         }
 
@@ -34,11 +49,15 @@
               svg {
                 font-size: 20px;
               }
+
               h3.owner-name {
                 margin-bottom: 0;
                 margin-left: @margin-xss;
                 color: @normal-grey-color;
                 font-size: 20px;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
               }
             }
 
@@ -53,15 +72,13 @@
 
                     h3.user-count-text {
                       font-size: 20px;
+                      color: @normal-grey-color;
                       margin-bottom: 0;
                     }
-
                   }
-
                 }
               }
             }
-
 
 
           }

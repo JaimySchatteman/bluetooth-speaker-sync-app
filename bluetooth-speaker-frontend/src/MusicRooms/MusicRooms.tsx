@@ -17,7 +17,6 @@ const MusicRooms = () => {
   const getMusicRooms = useCallback(async (): Promise<void> => {
     try {
       const { data } = await http.get("musicrooms");
-      console.log(data);
       setMusicRooms(data);
     } catch (e) {
       console.log(e);
@@ -29,7 +28,7 @@ const MusicRooms = () => {
   }, [getMusicRooms]);
 
   return (
-    <Screen className="music-rooms">
+    <Screen className="music-rooms-page">
       <Row align="middle" justify="space-between">
         <h1 className="musicrooms-title">All Music Rooms</h1>
         <Link to={{ pathname: "/create", state: { previousPath: pathname } }}>
@@ -38,7 +37,7 @@ const MusicRooms = () => {
           </Button>
         </Link>
       </Row>
-      <Row gutter={[24, 28]}>
+      <Row className="music-rooms" gutter={[24, 28]}>
         {!isLoading && musicRooms
           ? musicRooms.map(({ id, title, owner: { name }, users }) => {
               return (
@@ -69,7 +68,7 @@ const MusicRooms = () => {
                         <Col span={24} className="users-container">
                           <Row align="middle" justify="space-between">
                             <Col className="user-count">
-                              <TeamOutlined style={{ fontSize: 20, color: "#6E798C", marginRight: 8 }} />
+                              <TeamOutlined style={{ fontSize: 21, color: "#6E798C", marginRight: 8 }} />
                               <h3 className="user-count-text">{users.length}</h3>
                             </Col>
 
