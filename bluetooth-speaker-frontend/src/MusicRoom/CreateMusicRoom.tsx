@@ -25,7 +25,7 @@ const CreateMusicRoom = () => {
         if (user) {
           const {
             data: { id },
-          } = await http.post<MusicRoomType>("api/musicroom", { title: values.title, owner_id: user.id });
+          } = await http.post<MusicRoomType>("musicroom", { title: values.title, owner_id: user.id });
           history.push("musicroom/" + id, { previousPath: pathname });
         }
       } catch (e) {
