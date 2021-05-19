@@ -23,6 +23,10 @@ class MusicroomController extends Controller
 
     public function create(Request $request)
     {
+        $request->validate([
+            'title' => 'bail|required|unique:musicrooms',
+            'owner_id' => 'required',
+        ]);
         $musicroom =  Musicroom::firstOrCreate(['title' => $request->title, 'owner_id' => $request->owner_id]);
         $queue = Queue::create(['musicroom_id' => $musicroom->id]);
 
