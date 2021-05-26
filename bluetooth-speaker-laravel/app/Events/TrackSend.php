@@ -9,13 +9,13 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use App\Model\Track;
+use App\Models\Track;
 
 class TrackSend implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $message;
+    public $track;
 
     /**
      * Create a new event instance.
@@ -35,5 +35,10 @@ class TrackSend implements ShouldBroadcast
     public function broadcastOn()
     {
         return new PresenceChannel('track');
+    }
+
+    public function broadcastWith()
+    {
+        return ["track" => $this->track];
     }
 }
