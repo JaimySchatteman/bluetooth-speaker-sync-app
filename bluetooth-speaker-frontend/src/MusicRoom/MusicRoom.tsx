@@ -6,8 +6,8 @@ import SearchBarYoutube from "./SearchBarYoutube";
 import Track from "../Common/Objects/Track";
 // @ts-ignore
 import { Screen, Link } from "react-tiger-transition";
-import { useLocation, useParams } from "react-router-dom";
-import { ArrowLeftOutlined, CustomerServiceOutlined, TeamOutlined, UserOutlined } from "@ant-design/icons";
+import { useParams } from "react-router-dom";
+import { TeamOutlined, UserOutlined } from "@ant-design/icons";
 import { Avatar, Col, Row, Space } from "antd";
 import http from "../Common/Utilities/HttpModule";
 import { MusicRoomType } from "../Common/Objects/MusicRoomType";
@@ -15,21 +15,21 @@ import queueIcon from "./queue.svg";
 import { useRecoilValue } from "recoil";
 import UserState from "../GlobalState/UserState";
 import musicIcon from "./music.svg";
-import { useCookies } from "react-cookie";
 import Echo from "laravel-echo";
+import { useCookies } from "react-cookie";
+import { User } from "../Common/Objects/User";
 
 type MusicRoomRouteParams = {
   id?: string | undefined;
 };
+
+const pusher = require("pusher-js");
 
 const MusicRoom = () => {
   const [musicRoom, setMusicRoom] = useState<MusicRoomType>();
   const { id } = useParams<MusicRoomRouteParams>();
   const user = useRecoilValue(UserState);
   const [{ accessToken }] = useCookies();
-
-  const pusher = require("pusher-js");
-
   const options = {
     broadcaster: "pusher",
     key: "5678912",
@@ -42,23 +42,20 @@ const MusicRoom = () => {
     wssPort: 6001,
     enabledTransports: ["ws", "wss"],
     disableStats: true,
+    //authEndpoint is your apiUrl + /broadcasting/auth
+    authEndpoint: "http://localhost:8000/broadcasting/auth",
+    // As I'm using JWT tokens, I need to manually set up the headers.
+    auth: {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        Accept: "application/json",
+      },
+    },
   };
 
-  const echo = new Echo(options);
-
-  echo.listen("track", "TrackSend", (data: any) => {
-    console.log("track_test");
-    console.log(data);
-  });
-  
-  echo.listen("user", "UserJoinMusicroom", (data: any) => {
-    console.log("user_test");
-    console.log(data);
-  });
-  
-  echo.listen("user", "UserLeaveMusicroom", () => {
-    console.log("userLEAVE_test");
-  });
+  const [echo] = useState(new Echo(options));
+  const [isListeningToTracks, setIsListeningToTracks] = useState<boolean>(false);
+  const [isListeningToUsers, setIsListeningToUsers] = useState<boolean>(false);
 
   const getMusicRoom = useCallback(async () => {
     try {
@@ -85,16 +82,6 @@ const MusicRoom = () => {
     }
   }, [id, user?.id]);
 
-  useEffect(() => {
-    addUserToMusicRoom().then(() => {
-      getMusicRoom();
-    });
-
-    return function () {
-      deleteUserFromMusicRoom();
-    };
-  }, [addUserToMusicRoom, deleteUserFromMusicRoom, getMusicRoom]);
-
   const updateQueue = useCallback(
     (newQueue: Track[]) => {
       if (musicRoom) {
@@ -105,6 +92,85 @@ const MusicRoom = () => {
     },
     [musicRoom],
   );
+
+  const addTrackToQueue = useCallback(
+    (newTrack: Track) => {
+      console.log(musicRoom);
+      if (musicRoom) {
+        console.log("websocket add");
+        const newQueue = [...musicRoom.queue.tracks, newTrack];
+        updateQueue(newQueue);
+      }
+    },
+    [musicRoom, updateQueue],
+  );
+
+  const updateSocketQueue = useCallback(
+    ({ track }: any) => {
+      addTrackToQueue(track);
+    },
+    [addTrackToQueue],
+  );
+
+  const updateUsers = useCallback(
+    (newUsers: User[]) => {
+      if (musicRoom) {
+        const newMusicRoom: MusicRoomType = { ...musicRoom };
+        newMusicRoom.users = newUsers;
+        setMusicRoom(newMusicRoom);
+      }
+    },
+    [musicRoom],
+  );
+
+  const addUserToRoom = useCallback(
+    (data: any) => {
+      console.log(data);
+      if (musicRoom) {
+        const newUsers = [...musicRoom.users, data.user];
+        updateUsers(newUsers);
+      }
+    },
+    [musicRoom, updateUsers],
+  );
+
+  const removeUserFromRoom = useCallback(
+    (data: any) => {
+      console.log(data);
+      /*if (musicRoom) {
+        const newUsers = musicRoom.users.filter(iterUSer => data.user.id !== iterUSer.id);
+        updateUsers(newUsers);
+      }*/
+    },
+    [musicRoom, updateUsers],
+  );
+
+  useEffect(() => {
+    if (!isListeningToTracks && musicRoom) {
+      setIsListeningToTracks(true);
+      echo.listen("track", "TrackSend", updateSocketQueue);
+    }
+  }, [echo, isListeningToTracks, musicRoom, updateSocketQueue]);
+
+  useEffect(() => {
+    if (!isListeningToUsers && user && musicRoom) {
+      setIsListeningToUsers(true);
+      echo.listen("user", "UserJoinMusicroom", addUserToRoom);
+      echo.listen("user", "UserLeaveMusicroom", removeUserFromRoom);
+    }
+  }, [addUserToRoom, echo, isListeningToUsers, user, removeUserFromRoom, musicRoom]);
+
+  useEffect(() => {
+    if (user) {
+      addUserToMusicRoom().then(() => {
+        getMusicRoom();
+      });
+
+      return function () {
+        deleteUserFromMusicRoom();
+      };
+    }
+  }, [addUserToMusicRoom, deleteUserFromMusicRoom, getMusicRoom, user]);
 
   const handleRemoveFromQueue = useCallback(
     async (trackId: number) => {
@@ -122,13 +188,9 @@ const MusicRoom = () => {
 
   const handleAddToQueue = useCallback(
     async (track: Track) => {
-      const { data } = await http.post("track/", { queue_id: musicRoom?.queue.id, ...track });
-      if (musicRoom) {
-        const newQueue = [...musicRoom.queue.tracks, data];
-        updateQueue(newQueue);
-      }
+      await http.post("track/", { queue_id: musicRoom?.queue.id, ...track });
     },
-    [musicRoom, updateQueue],
+    [musicRoom?.queue.id],
   );
 
   const nextVideo = useCallback(() => {
