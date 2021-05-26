@@ -47,8 +47,17 @@ const MusicRoom = () => {
   const echo = new Echo(options);
 
   echo.listen("track", "TrackSend", (data: any) => {
-    console.log("test");
+    console.log("track_test");
     console.log(data);
+  });
+  
+  echo.listen("user", "UserJoinMusicroom", (data: any) => {
+    console.log("user_test");
+    console.log(data);
+  });
+  
+  echo.listen("user", "UserLeaveMusicroom", () => {
+    console.log("userLEAVE_test");
   });
 
   const getMusicRoom = useCallback(async () => {

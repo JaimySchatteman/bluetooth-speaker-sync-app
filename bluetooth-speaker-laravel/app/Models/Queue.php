@@ -10,7 +10,8 @@ class Queue extends Model
     use HasFactory;
 
     protected $fillable = [
-        'musicroom_id'
+        'musicroom_id',
+        'song-started-playing'
     ];
 
     public function musicroom()

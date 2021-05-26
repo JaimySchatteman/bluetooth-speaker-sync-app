@@ -7,6 +7,8 @@ use App\Models\Musicroom;
 use App\Models\Queue;
 use App\Models\Track;
 use App\Models\User;
+use App\Events\UserJoinMusicroom;
+use App\Events\UserLeaveMusicroom;
 use Illuminate\Support\Facades\Log;
 
 class MusicroomController extends Controller
@@ -39,6 +41,8 @@ class MusicroomController extends Controller
         $user = User::findOrFail($request->user_id);
         $musicroom->users()->save($user);
 
+        broadcast(new UserJoinMusicroom($user));
+
         return $musicroom;
     }
 
@@ -65,8 +69,10 @@ class MusicroomController extends Controller
     public function destroyUser($id, $user_id){
 
         $musicroom = Musicroom::findOrFail($id);
-
+        
         $musicroom->users()->where('id',$user_id)->update(['musicroom_id' => null]);
+        
+        broadcast(new UserLeaveMusicroom());
 
         return response(204);
     }
