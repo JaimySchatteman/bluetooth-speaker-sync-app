@@ -1,4 +1,4 @@
-name: PHP Composer
+name: Build process
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  backend:
 
     runs-on: ubuntu-latest
 
@@ -56,10 +56,29 @@ jobs:
     - name: Start Websockets server
       run: 'ssh music@challenger.tiar.be sudo supervisorctl restart MUSICPROJECT:'
       
-      
-      
-    # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
-    # Docs: https://getcomposer.org/doc/articles/scripts.md
+  
+  frontend:
 
-    # - name: Run test suite
-    #   run: composer run-script test
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install yarn packages
+      run: cd bluetooth-speaker-frontend && yarn install
+
+    - name: Build webfiles
+      run: cd bluetooth-speaker-frontend && yarn build
+
+
+    - name: Deploy to server
+      id: deploy
+      uses: Pendect/action-rsyncer@v1.1.0
+      env:
+        DEPLOY_KEY: ${{secrets.PRIVATE_KEY}}
+      with:
+        flags: '-avzr --delete'
+        options: ''
+        ssh_options: '-o IdentitiesOnly=yes'
+        src: '/bluetooth-speaker-frontend/build/*'
+        dest: 'music@challenger.tiar.be:/home/music/webapps/music/'
