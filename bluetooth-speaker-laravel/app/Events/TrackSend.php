@@ -34,7 +34,7 @@ class TrackSend implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PresenceChannel('track');
+        return new Channel('track');
     }
 
     /*public function broadcastWith()
