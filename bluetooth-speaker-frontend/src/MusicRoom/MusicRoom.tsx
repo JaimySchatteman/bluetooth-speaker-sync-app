@@ -46,7 +46,11 @@ const MusicRoom = () => {
 
   const echo = new Echo(options);
 
+<<<<<<< HEAD
   echo.listen("track", "TrackSend", (data: any) => {
+=======
+  echo.listen(".track", "TrackSend", (data: any) => {
+>>>>>>> 1ed7bba5e71a6a3f2ed2f98d68ed246192726e19
     console.log("test");
     console.log(data);
   });

@@ -52,10 +52,8 @@ const SearchBarYoutube: FunctionComponent<SearchBarYoutubeProps> = ({ onAddToQue
 
   const onSelect = useCallback(
     (title: string) => {
-      console.log(title);
-      console.log(videos);
       const videoToAdd: Track | undefined = videos.find(video => video.title === title);
-      console.log(videoToAdd);
+      console.log("video added!");
       videoToAdd && onAddToQueue(videoToAdd);
     },
     [onAddToQueue, videos],
