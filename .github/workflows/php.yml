@@ -15,21 +15,21 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Validate composer.json and composer.lock
-      working-directory: ./bluetooth-speaker-backend
+      working-directory: ./bluetooth-speaker-laravel
       run: composer validate --strict
 
     - name: Cache Composer packages
       id: composer-cache
       uses: actions/cache@v2
       with:
-        working-directory: ./bluetooth-speaker-backend
+        working-directory: ./bluetooth-speaker-laravel
         path: vendor
         key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
           ${{ runner.os }}-php-
 
     - name: Install dependencies
-      working-directory: ./bluetooth-speaker-backend
+      working-directory: ./bluetooth-speaker-laravel
       run: composer install --prefer-dist --no-progress
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
