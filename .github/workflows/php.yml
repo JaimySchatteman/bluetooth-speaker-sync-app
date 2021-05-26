@@ -1,4 +1,4 @@
-name: PHP Composer
+name: Build process
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  backend:
 
     runs-on: ubuntu-latest
 
@@ -42,19 +42,43 @@ jobs:
         ssh_options: '-o IdentitiesOnly=yes'
         src: '/bluetooth-speaker-laravel/*'
         dest: 'music@challenger.tiar.be:/home/music/webapps/music-backend/'
+    
+    - name: SSH Setup
+      # You may pin to the exact commit or the version.
+      # uses: MrSquaare/ssh-setup-action@8ed91aadfe85793a7db7d339cab95f07c50686e4
+      uses: MrSquaare/ssh-setup-action@v1.0.1
+      with:
+        # SSH hosts
+        host: challenger.tiar.be
+        # SSH private key
+        private-key: ${{secrets.PRIVATE_KEY}}
 
-#     - name: deploy to server
-#       uses: AEnterprise/rsync-deploy@v1.0
-#       env:
-#         DEPLOY_KEY: ${{ secrets.PRIVATE_KEY }}
-#         ARGS: "-e -c -r --delete"
-#         SERVER_PORT: 22
-#         FOLDER: "./bluetooth-speaker-laravel/*"
-#         SERVER_IP: challenger.tiar.be
-#         USERNAME: music
-#         SERVER_DESTINATION: '/home/music/webapps/music-backend/'
-    # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
-    # Docs: https://getcomposer.org/doc/articles/scripts.md
+    - name: Start Websockets server
+      run: 'ssh music@challenger.tiar.be sudo supervisorctl restart MUSICPROJECT:'
+      
+  
+  frontend:
 
-    # - name: Run test suite
-    #   run: composer run-script test
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install yarn packages
+      run: cd bluetooth-speaker-frontend && yarn install
+
+    - name: Build webfiles
+      run: cd bluetooth-speaker-frontend && yarn build
+
+
+    - name: Deploy to server
+      id: deploy
+      uses: Pendect/action-rsyncer@v1.1.0
+      env:
+        DEPLOY_KEY: ${{secrets.PRIVATE_KEY}}
+      with:
+        flags: '-avzr --delete'
+        options: ''
+        ssh_options: '-o IdentitiesOnly=yes'
+        src: '/bluetooth-speaker-frontend/build/*'
+        dest: 'music@challenger.tiar.be:/home/music/webapps/music/'
