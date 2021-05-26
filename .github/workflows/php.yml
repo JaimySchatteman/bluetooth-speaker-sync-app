@@ -42,8 +42,20 @@ jobs:
         ssh_options: '-o IdentitiesOnly=yes'
         src: '/bluetooth-speaker-laravel/*'
         dest: 'music@challenger.tiar.be:/home/music/webapps/music-backend/'
+    
+    - name: SSH Setup
+      # You may pin to the exact commit or the version.
+      # uses: MrSquaare/ssh-setup-action@8ed91aadfe85793a7db7d339cab95f07c50686e4
+      uses: MrSquaare/ssh-setup-action@v1.0.1
+      with:
+        # SSH hosts
+        host: challenger.tiar.be
+        # SSH private key
+        private-key: ${{secrets.PRIVATE_KEY}}
+
     - name: Start Websockets server
-      run: 'sudo supervisorctl restart MUSICPROJECT:'
+      run: 'ssh music@challenger.tiar.be sudo supervisorctl restart MUSICPROJECT:'
+      
       
       
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
