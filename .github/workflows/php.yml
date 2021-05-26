@@ -29,9 +29,19 @@ jobs:
 
     - name: Install dependencies
       working-directory: ./bluetooth-speaker-laravel
-      #run: composer update
       run: composer install --ignore-platform-reqs
 
+    - name: Deploy to server
+      id: deploy
+      uses: Pendect/action-rsyncer@v1.1.0
+      env:
+        DEPLOY_KEY: ${{secrets.PRIVATE_KEY}}
+      with:
+        flags: '-avzr --delete'
+        options: ''
+        ssh_options: ''
+        src: 'bluetooth-speaker-laravel'
+        dest: 'music@challenger.tiar.be:/home/music/webapps/'
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
 
