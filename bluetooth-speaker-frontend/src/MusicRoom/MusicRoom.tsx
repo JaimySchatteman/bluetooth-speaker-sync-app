@@ -32,25 +32,21 @@ const MusicRoom = () => {
 
   const options = {
     broadcaster: "pusher",
-    key: "d4b9af39550bd7832778",
-    cluster: "mt1",
-    forceTLS: true,
-    encrypted: false,
-
-    //authEndpoint is your apiUrl + /broadcasting/auth
-    authEndpoint: "http://localhost:8000/broadcasting/auth/",
-    // As I'm using JWT tokens, I need to manually set up the headers.
-    auth: {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        Accept: "application/json",
-      },
-    },
+    key: "bliepbloep",
+    secret: "Azerty123",
+    cluster: "eu",
+    forceTLS: false,
+    wsHost: window.location.hostname,
+    wsPort: 6001,
+    wssHost: window.location.hostname,
+    wssPort: 6001,
+    enabledTransports: ["ws", "wss"],
+    disableStats: true,
   };
 
   const echo = new Echo(options);
 
-  echo.private(`App.User.${user?.id}`).listen("track", (data: any) => {
+  echo.listen(".track", "track-send", (data: any) => {
     console.log("test");
     console.log(data);
   });
