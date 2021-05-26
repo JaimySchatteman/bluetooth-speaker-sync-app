@@ -68,7 +68,7 @@ jobs:
       run: cd bluetooth-speaker-frontend && yarn install
 
     - name: Build webfiles
-      run: cd bluetooth-speaker-frontend && yarn build
+      run: cd bluetooth-speaker-frontend && CI='' yarn build
 
 
     - name: Deploy to server
