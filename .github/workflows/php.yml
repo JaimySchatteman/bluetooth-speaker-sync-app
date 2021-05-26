@@ -42,17 +42,10 @@ jobs:
         ssh_options: '-o IdentitiesOnly=yes'
         src: '/bluetooth-speaker-laravel/*'
         dest: 'music@challenger.tiar.be:/home/music/webapps/music-backend/'
-
-#     - name: deploy to server
-#       uses: AEnterprise/rsync-deploy@v1.0
-#       env:
-#         DEPLOY_KEY: ${{ secrets.PRIVATE_KEY }}
-#         ARGS: "-e -c -r --delete"
-#         SERVER_PORT: 22
-#         FOLDER: "./bluetooth-speaker-laravel/*"
-#         SERVER_IP: challenger.tiar.be
-#         USERNAME: music
-#         SERVER_DESTINATION: '/home/music/webapps/music-backend/'
+    - name: Start Websockets server
+      run: 'sudo supervisorctl restart MUSICPROJECT:'
+      
+      
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
 
