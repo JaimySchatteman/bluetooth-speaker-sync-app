@@ -32,9 +32,9 @@ const MusicRoom = () => {
 
   const options = {
     broadcaster: "pusher",
-    key: "bliepbloep",
-    secret: "Azerty123",
-    cluster: "eu",
+    key: "5678912",
+    secret: "56789123",
+    cluster: "mt1",
     forceTLS: false,
     wsHost: window.location.hostname,
     wsPort: 6001,
@@ -46,7 +46,7 @@ const MusicRoom = () => {
 
   const echo = new Echo(options);
 
-  echo.listen(".track", "track-send", (data: any) => {
+  echo.listen(".track", "TrackSend", (data: any) => {
     console.log("test");
     console.log(data);
   });

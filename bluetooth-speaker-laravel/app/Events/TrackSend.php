@@ -34,7 +34,7 @@ class TrackSend implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
-        return new PresenceChannel('track');
+        return new Channel('track');
     }
 
     /*public function broadcastWith()
@@ -42,7 +42,7 @@ class TrackSend implements ShouldBroadcastNow
         return ["track" => $this->track];
     }
 
-    public function broadcastAs() 
+    public function broadcastAs()
     {
         return 'track';
     }*/
