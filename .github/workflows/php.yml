@@ -27,10 +27,10 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-php-
 
-    - name: update dependencies
+    - name: Install dependencies
       working-directory: ./bluetooth-speaker-laravel
-      run: composer update
-      #run: composer install --prefer-dist --no-progress
+      #run: composer update
+      run: composer install
 
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
