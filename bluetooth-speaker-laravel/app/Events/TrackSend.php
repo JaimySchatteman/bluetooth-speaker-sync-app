@@ -37,8 +37,13 @@ class TrackSend implements ShouldBroadcast
         return new PresenceChannel('track');
     }
 
-    public function broadcastWith()
+    /*public function broadcastWith()
     {
         return ["track" => $this->track];
     }
+
+    public function broadcastAs() 
+    {
+        return 'track';
+    }*/
 }
