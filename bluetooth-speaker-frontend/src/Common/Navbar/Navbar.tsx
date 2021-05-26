@@ -24,15 +24,19 @@ const Navbar: FunctionComponent = () => {
 
   const dropdownMenu = useMemo(
     () => (
-      <Menu mode="vertical" className="dropdown_menu">
-        <Menu.Item key="1">
-          <UserOutlined /> Account
-        </Menu.Item>
+      <div
+        style={{ display: "flex", flexDirection: "column", borderRadius: 5, justifyContent: "center", backgroundColor: "#fff", padding: 5 }}
+      >
+        <Menu mode="vertical" className="dropdown_menu">
+          <Menu.Item key="1">
+            <UserOutlined /> Account
+          </Menu.Item>
+        </Menu>
         <Button shape="round" type="primary" onClick={handleLogout}>
           Logout
           <LogoutOutlined />
         </Button>
-      </Menu>
+      </div>
     ),
     [handleLogout],
   );

@@ -15,6 +15,8 @@ import queueIcon from "./queue.svg";
 import { useRecoilValue } from "recoil";
 import UserState from "../GlobalState/UserState";
 import musicIcon from "./music.svg";
+import { useCookies } from "react-cookie";
+import Echo from "laravel-echo";
 
 type MusicRoomRouteParams = {
   id?: string | undefined;
@@ -24,7 +26,34 @@ const MusicRoom = () => {
   const [musicRoom, setMusicRoom] = useState<MusicRoomType>();
   const { id } = useParams<MusicRoomRouteParams>();
   const user = useRecoilValue(UserState);
-  const { pathname } = useLocation();
+  const [{ accessToken }] = useCookies();
+
+  const pusher = require("pusher-js");
+
+  const options = {
+    broadcaster: "pusher",
+    key: "d4b9af39550bd7832778",
+    cluster: "mt1",
+    forceTLS: true,
+    encrypted: false,
+
+    //authEndpoint is your apiUrl + /broadcasting/auth
+    authEndpoint: "http://localhost:8000/broadcasting/auth/",
+    // As I'm using JWT tokens, I need to manually set up the headers.
+    auth: {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        Accept: "application/json",
+      },
+    },
+  };
+
+  const echo = new Echo(options);
+
+  echo.private(`App.User.${user?.id}`).listen("track", (data: any) => {
+    console.log("test");
+    console.log(data);
+  });
 
   const getMusicRoom = useCallback(async () => {
     try {
