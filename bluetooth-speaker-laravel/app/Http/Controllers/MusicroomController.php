@@ -10,7 +10,7 @@ use App\Models\User;
 use App\Events\UserJoinMusicroom;
 use App\Events\UserLeaveMusicroom;
 use App\Events\TrackDelete;
-use App\Events\StartPlayingAT;
+use App\Events\StartPlayingAt;
 use App\Events\PauzedAt;
 use Illuminate\Support\Facades\Log;
 
@@ -52,8 +52,8 @@ class MusicroomController extends Controller
 
     public function startPlayingAt(Request $request, $id)
     {
-        $queue = Queue::where('id', $id)->update(array('started_playing_at_time' => $request->start_at));   
-        broadcast(new StartPlayingAT($request->song_number, $id));
+        $queue = Queue::where('id', $id)->update(array('started_playing_at_time' => $request->start_at));
+        broadcast(new StartPlayingAt($request->start_at, $id));
 
         return $queue;
     }
@@ -61,8 +61,8 @@ class MusicroomController extends Controller
     public function pauzedAt(Request $request, $id)
     {
         $queue = Queue::where('id', $id)->update(array('pauzed_at_time' => $request->pauze_at));
-        broadcast(new PauzedAT($request->pauze_at, $id));
-        
+        broadcast(new PauzedAt($request->pauze_at, $id));
+
         return $queue;
     }
 
@@ -92,9 +92,9 @@ class MusicroomController extends Controller
     public function destroyUser($id, $user_id){
 
         $musicroom = Musicroom::findOrFail($id);
-        
+
         $musicroom->users()->where('id',$user_id)->update(['musicroom_id' => null]);
-        
+
         $user = User::findOrFail($user_id);
         broadcast(new UserLeaveMusicroom($user, $id));
 
