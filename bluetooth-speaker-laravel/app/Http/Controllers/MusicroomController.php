@@ -41,7 +41,7 @@ class MusicroomController extends Controller
         $user = User::findOrFail($request->user_id);
         $musicroom->users()->save($user);
 
-        broadcast(new UserJoinMusicroom($user));
+        broadcast(new UserJoinMusicroom($user, $id));
 
         return $musicroom;
     }
@@ -72,7 +72,8 @@ class MusicroomController extends Controller
         
         $musicroom->users()->where('id',$user_id)->update(['musicroom_id' => null]);
         
-        broadcast(new UserLeaveMusicroom());
+        $user = User::findOrFail($user_id);
+        broadcast(new UserLeaveMusicroom($user, $id));
 
         return response(204);
     }
