@@ -49,7 +49,7 @@ Route::get('/musicroom/{id}', [MusicroomController::class, 'show']);
 
 Route::post('/musicroom', [MusicroomController::class, 'create']);
 
-Route::post('/musicroom/{id}/startAt', [MusicroomController::class, 'startPlaylistAt']);
+Route::post('/musicroom/{id}/startAt', [MusicroomController::class, 'startPlayingAt']);
 Route::post('/musicroom/{id}/pauzedAt', [MusicroomController::class, 'pauzedAt']);
 
 Route::post('/musicroom/{id}', [MusicroomController::class, 'addUser']);

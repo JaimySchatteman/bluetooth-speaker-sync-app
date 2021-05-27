@@ -17,7 +17,7 @@ class CreateQueuesTable extends Migration
             $table->id();
 
             //one-to-one musicroom
-            $table->integer('started_playing_at_number')->default(0);
+            $table->time('started_playing_at_time')->default(0);
             $table->time('pauzed_at_time')->default(0);
             $table->unsignedBigInteger('musicroom_id')->nullable();
             $table->foreign('musicroom_id')->references('id')->on('musicrooms');

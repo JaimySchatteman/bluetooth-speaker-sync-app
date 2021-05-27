@@ -50,9 +50,9 @@ class MusicroomController extends Controller
     }
 
 
-    public function startPlaylistAt(Request $request, $id)
+    public function startPlayingAt(Request $request, $id)
     {
-        $queue = Queue::where('id', $id)->update(array('started_playing_at_number' => $request->song_number));   
+        $queue = Queue::where('id', $id)->update(array('started_playing_at_time' => $request->start_at));   
         broadcast(new StartPlayingAT($request->song_number, $id));
 
         return $queue;

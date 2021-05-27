@@ -11,7 +11,7 @@ class Queue extends Model
 
     protected $fillable = [
         'musicroom_id',
-        'started_playing_at_number',
+        'started_playing_at_time',
         'pauzed_at_time'
     ];
 

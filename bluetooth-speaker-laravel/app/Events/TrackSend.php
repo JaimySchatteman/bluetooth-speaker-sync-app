@@ -38,14 +38,4 @@ class TrackSend implements ShouldBroadcast
     {
         return new Channel('track.'.$this->queue_id);
     }
-
-    /*public function broadcastWith()
-    {
-        return ["track" => $this->track];
-    }
-
-    public function broadcastAs() 
-    {
-        return 'track';
-    }*/
 }
