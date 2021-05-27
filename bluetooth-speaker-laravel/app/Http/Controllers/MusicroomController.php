@@ -9,6 +9,7 @@ use App\Models\Track;
 use App\Models\User;
 use App\Events\UserJoinMusicroom;
 use App\Events\UserLeaveMusicroom;
+use App\Events\TrackDelete;
 use Illuminate\Support\Facades\Log;
 
 class MusicroomController extends Controller
@@ -62,6 +63,8 @@ class MusicroomController extends Controller
         $track = Track::findOrFail($track_id);
 
         $track->queues()->detach($queue);
+
+        broadcast(new TrackDelete($track, $id));
 
         return response(204);
     }
