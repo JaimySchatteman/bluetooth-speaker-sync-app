@@ -9,13 +9,12 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use App\Models\Track;
 
-class TrackDelete implements ShouldBroadcast
+class StartPlayingAt implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $track;
+    public $started_playing_at;
     public $queue_id;
 
     /**
@@ -23,9 +22,9 @@ class TrackDelete implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct(Track $track, $queue_id)
+    public function __construct($started_playing_at, $queue_id)
     {
-        $this->track = $track;
+        $this->started_playing_at = $started_playing_at;
         $this->queue_id = $queue_id;
     }
 
@@ -36,7 +35,7 @@ class TrackDelete implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('track.'.$this->queue_id);
+        return new Channel('queue.'.$this->queue_id);
     }
 
 }

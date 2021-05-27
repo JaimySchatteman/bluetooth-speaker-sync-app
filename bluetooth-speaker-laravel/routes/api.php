@@ -47,14 +47,19 @@ Route::get('users', [UserController::class, 'index']);
 Route::get('/musicrooms', [MusicroomController::class, 'index']);
 Route::get('/musicroom/{id}', [MusicroomController::class, 'show']);
 
+Route::post('/musicroom', [MusicroomController::class, 'create']);
+
+Route::post('/musicroom/{id}/startAt', [MusicroomController::class, 'startPlaylistAt']);
+Route::post('/musicroom/{id}/pauzedAt', [MusicroomController::class, 'pauzedAt']);
+
 Route::post('/musicroom/{id}', [MusicroomController::class, 'addUser']);
 Route::delete('/musicroom/{id}/user/{user_id}', [MusicroomController::class, 'destroyUser']);
 
 Route::delete('/musicroom/{id}', [MusicroomController::class, 'destroy']);
 Route::delete('/musicroom/{id}/track/{track_id}', [MusicroomController::class, 'destroyTrack']);
 
-Route::post('/musicroom', [MusicroomController::class, 'create']);
 
+//Track API
 Route::post('/track', [TrackController::class, 'create']);
 Route::get('/track', [TrackController::class, 'index']);
 
