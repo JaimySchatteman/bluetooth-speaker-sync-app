@@ -148,15 +148,15 @@ const MusicRoom = () => {
   useEffect(() => {
     if (!isListeningToTracks && musicRoom) {
       setIsListeningToTracks(true);
-      echo.listen("track", "TrackSend", updateSocketQueue);
+      echo.listen(`track.${musicRoom.id}`, "TrackSend", updateSocketQueue);
     }
   }, [echo, isListeningToTracks, musicRoom, updateSocketQueue]);
 
   useEffect(() => {
     if (!isListeningToUsers && user && musicRoom) {
       setIsListeningToUsers(true);
-      echo.listen("user", "UserJoinMusicroom", addUserToRoom);
-      echo.listen("user", "UserLeaveMusicroom", removeUserFromRoom);
+      echo.listen(`musicroom.${musicRoom.id}`, "UserJoinMusicroom", addUserToRoom);
+      echo.listen(`musicroom.${musicRoom.id}`, "UserLeaveMusicroom", removeUserFromRoom);
     }
   }, [addUserToRoom, echo, isListeningToUsers, user, removeUserFromRoom, musicRoom]);
 

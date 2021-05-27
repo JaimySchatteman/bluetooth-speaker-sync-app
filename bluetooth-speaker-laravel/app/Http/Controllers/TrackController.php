@@ -20,7 +20,7 @@ class TrackController extends Controller
         $queue = Queue::findOrFail($request->queue_id);
         $track->queues()->attach($queue);
 
-        broadcast(new TrackSend($track))->toOthers();
+        broadcast(new TrackSend($track, $request->queue_id))->toOthers();
         
         return $track;
     }

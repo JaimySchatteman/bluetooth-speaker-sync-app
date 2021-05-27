@@ -16,15 +16,17 @@ class TrackSend implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $track;
+    public $queue_id;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Track $track)
+    public function __construct(Track $track, $queue_id)
     {
         $this->track = $track;
+        $this->queue_id = $queue_id;
     }
 
     /**
@@ -34,7 +36,7 @@ class TrackSend implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('track');
+        return new Channel('track.'.$this->queue_id);
     }
 
     /*public function broadcastWith()
