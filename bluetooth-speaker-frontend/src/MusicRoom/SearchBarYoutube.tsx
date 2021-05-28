@@ -45,7 +45,6 @@ const SearchBarYoutube: FunctionComponent<SearchBarYoutubeProps> = ({ onAddToQue
   };
 
   const onSearch = () => {
-    //setOptions(!searchText ? [] : [{ value: "testdd" }, { value: "test2" }, { value: "test3" }]);
     searchYoutubeByName();
     focus();
   };

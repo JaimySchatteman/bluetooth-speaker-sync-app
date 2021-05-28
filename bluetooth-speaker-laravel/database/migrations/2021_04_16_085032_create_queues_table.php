@@ -16,9 +16,9 @@ class CreateQueuesTable extends Migration
         Schema::create('queues', function (Blueprint $table) {
             $table->id();
 
-            $table->time('started_playing_at_time', 2)->default(0);
+            $table->time('started_playing_at_time', 3)->default(0);
             $table->time('pauzed_at_time')->default(0);
-            
+
             //one-to-one musicroom
             $table->unsignedBigInteger('musicroom_id')->nullable();
             $table->foreign('musicroom_id')->references('id')->on('musicrooms');

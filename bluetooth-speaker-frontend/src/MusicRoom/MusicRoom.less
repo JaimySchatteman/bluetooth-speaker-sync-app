@@ -109,6 +109,23 @@
           position: absolute;
           top: 0;
           left: 0;
+          pointer-events: none;
+        }
+      }
+
+      div.player-buttons-wrapper {
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        .anticon {
+          padding-top: @padding-sm;
+          svg {
+            font-size: @font-size-xxl;
+            path {
+              fill: @light-green-color;
+            }
+          }
+
         }
       }
     }

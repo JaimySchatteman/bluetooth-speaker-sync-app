@@ -17,6 +17,7 @@
     "antd": "^4.13.0",
     "axios": "^0.21.1",
     "camelcase-keys": "^6.2.2",
+    "classnames": "^2.3.1",
     "craco": "^0.0.3",
     "craco-less": "^1.17.1",
     "laravel-echo": "^1.10.0",
