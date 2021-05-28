@@ -6,8 +6,9 @@ import SearchBarYoutube from "./SearchBarYoutube";
 import Track from "../Common/Objects/Track";
 // @ts-ignore
 import { Screen, Link } from "react-tiger-transition";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import {
+  ArrowLeftOutlined,
   PauseCircleFilled,
   PauseCircleOutlined,
   PlayCircleFilled,
@@ -39,6 +40,7 @@ const MusicRoom = () => {
   const user = useRecoilValue(UserState);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const player = useRef<ReactPlayer>(null);
+  const { pathname } = useLocation();
 
   const options = {
     broadcaster: "pusher",
@@ -370,6 +372,12 @@ const MusicRoom = () => {
   }, [isPlaying, musicRoom, openPauseNotification, openStartNotification]);
   return (
     <Screen className="music-room">
+      <Row>
+        <Link to={{ pathname: "/", state: { previousPath: pathname } }}>
+          <ArrowLeftOutlined />
+          Back
+        </Link>
+      </Row>
       <Row className="music-room-info">
         <Col className="title-container">
           <h1>{musicRoom?.title}</h1>
