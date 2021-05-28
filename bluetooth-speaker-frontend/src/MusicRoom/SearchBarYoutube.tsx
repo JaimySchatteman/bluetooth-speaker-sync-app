@@ -4,7 +4,7 @@ import Track from "../Common/Objects/Track";
 
 // Youtube api connection
 const { YoutubeDataAPI } = require("youtube-v3-api");
-const API_KEY = "AIzaSyB2jdwa0q3zseYVginMFlHUEqc5rPLUXQg";
+const API_KEY = "AIzaSyCnFA9MC9ocChiYMa-Ed9EUkpLmqNngsdk";
 const api = new YoutubeDataAPI(API_KEY);
 
 type SearchBarYoutubeProps = {

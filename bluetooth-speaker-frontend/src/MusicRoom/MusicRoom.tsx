@@ -12,6 +12,7 @@ import {
   PauseCircleOutlined,
   PlayCircleFilled,
   PlayCircleOutlined,
+  StepForwardOutlined,
   TeamOutlined,
   UserOutlined,
 } from "@ant-design/icons";
@@ -426,6 +427,7 @@ const MusicRoom = () => {
             <div className={"player-buttons-wrapper"}>
               {user?.id === musicRoom.owner.id &&
                 (!isPlaying ? <PlayCircleFilled onClick={handlePlayPause} /> : <PauseCircleFilled onClick={handlePlayPause} />)}
+              {user?.id === musicRoom.owner.id && <StepForwardOutlined onClick={nextVideo} />}
             </div>
           </Col>
         )}
