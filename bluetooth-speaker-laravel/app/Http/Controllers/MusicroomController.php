@@ -9,6 +9,9 @@ use App\Models\Track;
 use App\Models\User;
 use App\Events\UserJoinMusicroom;
 use App\Events\UserLeaveMusicroom;
+use App\Events\TrackDelete;
+use App\Events\StartPlayingAt;
+use App\Events\PauzedAt;
 use Illuminate\Support\Facades\Log;
 
 class MusicroomController extends Controller
@@ -41,10 +44,28 @@ class MusicroomController extends Controller
         $user = User::findOrFail($request->user_id);
         $musicroom->users()->save($user);
 
-        broadcast(new UserJoinMusicroom($user));
+        broadcast(new UserJoinMusicroom($user, $id));
 
         return $musicroom;
     }
+
+
+    public function startPlayingAt(Request $request, $id)
+    {
+        $queue = Queue::where('id', $id)->update(array('started_playing_at_time' => $request->start_at));
+        broadcast(new StartPlayingAt($request->start_at, $id));
+
+        return $queue;
+    }
+
+    public function pauzedAt(Request $request, $id)
+    {
+        $queue = Queue::where('id', $id)->update(array('pauzed_at_time' => $request->pauze_at));
+        broadcast(new PauzedAt($request->pauze_at, $id));
+
+        return $queue;
+    }
+
 
     public function destroy($id)
     {
@@ -63,16 +84,19 @@ class MusicroomController extends Controller
 
         $track->queues()->detach($queue);
 
+        broadcast(new TrackDelete($track, $id));
+
         return response(204);
     }
 
     public function destroyUser($id, $user_id){
 
         $musicroom = Musicroom::findOrFail($id);
-        
+
         $musicroom->users()->where('id',$user_id)->update(['musicroom_id' => null]);
-        
-        broadcast(new UserLeaveMusicroom());
+
+        $user = User::findOrFail($user_id);
+        broadcast(new UserLeaveMusicroom($user, $id));
 
         return response(204);
     }

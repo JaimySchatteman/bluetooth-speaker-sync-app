@@ -9,13 +9,12 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use App\Models\Track;
 
-class TrackSend implements ShouldBroadcast
+class PauzedAt implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $track;
+    public $pauzed_at_time;
     public $queue_id;
 
     /**
@@ -23,9 +22,9 @@ class TrackSend implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct(Track $track, $queue_id)
+    public function __construct($pauzed_at_time, $queue_id)
     {
-        $this->track = $track;
+        $this->pauzed_at_time = $pauzed_at_time;
         $this->queue_id = $queue_id;
     }
 
@@ -36,6 +35,7 @@ class TrackSend implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('track.'.$this->queue_id);
+        return new Channel('queue.'.$this->queue_id);
     }
+
 }

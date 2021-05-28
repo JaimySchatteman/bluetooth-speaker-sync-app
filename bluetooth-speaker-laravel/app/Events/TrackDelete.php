@@ -11,7 +11,7 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use App\Models\Track;
 
-class TrackSend implements ShouldBroadcast
+class TrackDelete implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -38,4 +38,5 @@ class TrackSend implements ShouldBroadcast
     {
         return new Channel('track.'.$this->queue_id);
     }
+
 }

@@ -16,14 +16,16 @@ class UserJoinMusicroom implements ShouldBroadcast
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $user;
+    public $id;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct( $user)
+    public function __construct(User $user, $id)
     {
         $this->user = $user;
+        $this->id = $id;
     }
 
     /**
@@ -33,6 +35,6 @@ class UserJoinMusicroom implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('user');
+        return new Channel('musicroom.'.$this->id);
     }
 }
