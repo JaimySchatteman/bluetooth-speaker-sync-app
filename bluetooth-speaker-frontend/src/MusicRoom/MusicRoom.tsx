@@ -47,7 +47,7 @@ const MusicRoom = () => {
     forceTLS: false,
     wsHost: "http://musicbe.tiar.be",
     wsPort: 6001,
-    wssHost: " http://musicbe.tiar.be",
+    wssHost: "http://musicbe.tiar.be",
     wssPort: 6001,
     enabledTransports: ["ws", "wss"],
     disableStats: true,
@@ -288,7 +288,7 @@ const MusicRoom = () => {
   const handleAddToQueue = useCallback(
     async (track: Track) => {
       try {
-        await http.post("track/", { queue_id: musicRoom?.queue.id, ...track });
+        await http.post("track", { queue_id: musicRoom?.queue.id, ...track });
       } catch (e) {
         console.log(e);
       }
