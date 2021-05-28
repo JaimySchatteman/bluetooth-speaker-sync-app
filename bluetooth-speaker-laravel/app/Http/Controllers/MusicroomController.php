@@ -16,7 +16,8 @@ use Illuminate\Support\Facades\Log;
 
 class MusicroomController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return Musicroom::with('owner', 'users')->get();
     }
 
@@ -75,7 +76,8 @@ class MusicroomController extends Controller
         return response(204);
     }
 
-    public function destroyTrack($id, $track_id){
+    public function destroyTrack($id, $track_id)
+    {
         $queue = Queue::whereHas('musicroom', function($q) use($id) {
             $q->where('id', 'like',  $id );
         })->get();
@@ -89,8 +91,8 @@ class MusicroomController extends Controller
         return response(204);
     }
 
-    public function destroyUser($id, $user_id){
-
+    public function destroyUser($id, $user_id)
+    {
         $musicroom = Musicroom::findOrFail($id);
 
         $musicroom->users()->where('id',$user_id)->update(['musicroom_id' => null]);

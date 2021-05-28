@@ -9,7 +9,8 @@ use App\Models\Queue;
 
 class TrackController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return Track::all();
     }
 

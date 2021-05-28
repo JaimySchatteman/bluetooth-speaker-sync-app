@@ -15,7 +15,8 @@ class Musicroom extends Model
         'owner_id'
     ];
 
-    public function owner(){
+    public function owner()
+    {
         return $this->belongsTo(User::class);
     }
 

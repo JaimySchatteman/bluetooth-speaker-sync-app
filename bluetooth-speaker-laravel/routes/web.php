@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\User;
-use App\Events\WebSocketDemoEvent;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MusicroomController;
 
